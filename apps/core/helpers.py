@@ -10,6 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _, ugettext as tr
 from django.http import Http404
 from datetime import datetime, time, date
@@ -264,6 +265,10 @@ def render_to(template, content_type='text/html'):
         def wrapper(request, *args, **kwargs):
             dt = func(request, *args, **kwargs)
             if 'redirect' in dt:
+                if 'redirect-args' in dt:
+                    redirect_url = reverse(dt['redirect'],
+                        args=dt['redirect-args'])
+                    return redirect(redirect_url)
                 return redirect(dt['redirect'])
 
             if content_type.lower() == 'text/html':
