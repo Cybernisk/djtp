@@ -12,6 +12,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _, ugettext as tr
+from django.template.loader import render_to_string
+from django.core.exceptions import ImproperlyConfigured
+
 from django.http import Http404
 from datetime import datetime, time, date
 import simplejson as json
@@ -172,6 +175,8 @@ def model_json_encoder(obj, **kwargs):
     from django.db.models.query import QuerySet
     from decimal import Decimal
     from django.db.models.fields.files import ImageFieldFile
+    from django import forms
+    from django.utils.functional import Promise
     is_human = kwargs.get('parse_humanday', False)
     if isinstance(obj, QuerySet):
         return list(obj)
@@ -219,6 +224,16 @@ def model_json_encoder(obj, **kwargs):
         return obj.strftime("%H:%M")
     elif isinstance(obj, ImageFieldFile):
         return obj.url if hasattr(obj, 'url') else ''
+    elif isinstance(obj, forms.ModelForm) or isinstance(obj, forms.Form):
+        _form = {
+            'data': obj.data if hasattr(obj, 'data') else None,
+            'instance': obj.instance if hasattr(obj, 'instance') else None,
+        }
+        if obj.errors:
+            _form.update({'errors': obj.errors})
+        return _form
+    elif isinstance(obj, Promise):
+        return unicode(obj)
     #elif isinstance(obj, Decimal):
     #    return float(obj)
     return obj
@@ -260,31 +275,74 @@ def get_safe_fields(lst, Obj):
 
 
 #decorators
-def render_to(template, content_type='text/html'):
+def render_to_json(content_type='application/json'):
     def decorator(func):
         def wrapper(request, *args, **kwargs):
             dt = func(request, *args, **kwargs)
+            response = make_http_response(content_type=content_type)
+            response.write(json.dumps(dt, default=model_json_encoder))
+            return response
+        return wrapper
+    return decorator
+
+
+def render_to(template, allow_xhr=False, content_type='text/html'):
+    _content_type = content_type
+    def decorator(func):
+        def wrapper(request, *args, **kwargs):
+            response = make_http_response(content_type='application/json')
+            dt = func(request, *args, **kwargs)
+            if not isinstance(dt, dict):
+                raise ImproperlyConfigured("render_to should take dict instance not %s" % type(dt))
+            # overrides
+            tmpl = dt.get('_template', template)
+            content_type = dt.get('_content_type', _content_type)
+
+            force_ajax = request.META.get('HTTP_X_FORCE_XHTTPRESPONSE', None)
             if 'redirect' in dt:
-                if 'redirect-args' in dt:
-                    redirect_url = reverse(dt['redirect'],
-                        args=dt['redirect-args'])
-                    return redirect(redirect_url)
+                if force_ajax:
+                    response.write(json.dumps({"status": "ok"}))
+                    return response
+
+                args = dt.get('redirect-args', [])
+                if args:
+                    redr = reverse(dt['redirect'], args=args)
+                    return redirect(redr)
                 return redirect(dt['redirect'])
 
             if content_type.lower() == 'text/html':
+                if force_ajax and allow_xhr:
+                    response.write(json.dumps(dt, default=model_json_encoder))
+                    return response
                 return render_to_response(
-                    template,
+                    tmpl,
                     dt,
                     context_instance=RequestContext(request))
-            elif content_type.lower() in ['text/json', 'text/javascript']:
+
+            elif content_type.lower() == 'text/csv':
+                response = make_http_response(content_type=content_type)
+                response['Content-Disposition'] = 'attachment; filename="export.csv"'
+                response.write(
+                    render_to_string(tmpl, dt)
+                )
+                return response
+
+            elif content_type.lower() in ('text/json', 'text/javascript',
+                                          'application/json'):
                 response = HttpResponse()
                 response['Content-Type'] = content_type
-                tmpl = get_template(template)
+                tmpl = get_template(tmpl)
                 response.write(tmpl.render(Context(dt)))
                 return response
             else:
                 return render_to_response(
-                    template,
+                    tmpl,
                     dt, context_instance=RequestContext(request))
         return wrapper
     return decorator
+
+
+def get_model_content_type(Obj):
+    return ContentType.objects.get(
+        app_label=Obj._meta.app_label,
+        model=Obj._meta.module_name)
