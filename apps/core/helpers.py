@@ -299,6 +299,8 @@ def render_to(template, allow_xhr=False, content_type='text/html'):
             content_type = dt.get('_content_type', _content_type)
 
             force_ajax = request.META.get('HTTP_X_FORCE_XHTTPRESPONSE', None)
+            raw_html = request.META.get('HTTP_X_RAW_HTML', None)
+
             if 'redirect' in dt:
                 if force_ajax:
                     response.write(json.dumps({"status": "ok"}))
@@ -314,6 +316,8 @@ def render_to(template, allow_xhr=False, content_type='text/html'):
                 if force_ajax and allow_xhr:
                     response.write(json.dumps(dt, default=model_json_encoder))
                     return response
+                if raw_html:
+                    dt.update({'base': 'base_raw.html'})
                 return render_to_response(
                     tmpl,
                     dt,
