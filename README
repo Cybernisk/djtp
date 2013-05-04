@@ -1,6 +1,7 @@
-template for further site creation
+Project: Template
 
 INCLUDED:
     simple auth: login, logout
-    bootstrap 2.0, chosen
+    bootstrap 2.0, chosen (jquery 1.7.1)
     helpers: render_to and stuff
+    js helpers
