@@ -20,6 +20,25 @@ from datetime import datetime, time, date
 import simplejson as json
 
 
+# safe method get obj.attr.attr1 and so on
+# safe_ret(cell, 'room.pk')
+# safe_ret(cell, 'room.base.pk')
+safe_ret = (
+    lambda x, y: reduce(
+        lambda el, attr: (
+            getattr(el, attr)() if callable(getattr(el, attr)) else getattr(el, attr)
+        )
+        if hasattr(el, attr) else None,
+        [x, ] + y.split('.')
+    )
+)
+
+get_int_or_zero = lambda x: int(x) if (
+    x.isdigit() if isinstance(x, basestring) else x
+) else 0
+
+
+
 def get_top_object_or_None(Object, *args, **kwargs):
     if hasattr(Object, 'objects'):
         obj = Object.objects.filter(*args, **kwargs)

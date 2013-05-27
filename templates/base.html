@@ -5,15 +5,17 @@
 <link rel='stylesheet' href='/media/css/bootstrap.min.css' media='screen'>
 <link rel='stylesheet' href='/media/css/chosen.css' media='screen'>
 <link rel='stylesheet' href='/media/css/main.css' media='screen'>
+<link rel='stylesheet' href='/media/css/whhg.css' media='screen'>
 {% endblock %}
 {% block js %}
 <script type='text/javascript' src='/media/js/jquery-1.7.2.min.js'></script>
 <script type='text/javascript' src='/media/js/bootstrap-2.0.min.js'></script>
 <script type='text/javascript' src='/media/js/chosen.jquery.js'></script>
+<script type='text/javascript' src='/media/js/ajax-chosen.min.js'></script>
 {% endblock %}
 </head>
 <body>
-
+<div class='wrapper' id='wrap'>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
@@ -88,6 +90,23 @@
 <div class='container'>
 {% block content %}{% endblock %}
 </div>
+<div id='push'></div>
+</div> <!-- wrap -->
+<div id='footer'>
+    {% trans "footer" %} &copy; 2012-{% now "Y" %}
+</div>
+</body>
+<!-- noty -->
+<script type="text/javascript" src="/media/js/noty/jquery.noty.js"></script>
+<script type="text/javascript" src="/media/js/noty/promise.js"></script>
+
+<script type="text/javascript" src="/media/js/noty/layouts/top.js"></script>
+<script type="text/javascript" src="/media/js/noty/layouts/topLeft.js"></script>
+<script type="text/javascript" src="/media/js/noty/layouts/topRight.js"></script>
+<script type="text/javascript" src="/media/js/noty/layouts/topCenter.js"></script>
+<script type="text/javascript" src="/media/js/noty/layouts/center.js"></script>
+<script type="text/javascript" src="/media/js/noty/themes/default.js"></script>
+<script type="text/javascript" src="/media/js/noty/themes/override.js"></script>
 
 {% block endjs %}{% endblock %}
 <script type='text/javascript'>
@@ -97,4 +116,5 @@ $(document).ready(function(){
 {% block js_document_ready %}{% endblock %}
 });
 </script>
-</body></html>
+
+</html>
