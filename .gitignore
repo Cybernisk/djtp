@@ -2,4 +2,4 @@
 *.sw[po]
 /db.sqlite
 /workgin
-
+.sass-cache
