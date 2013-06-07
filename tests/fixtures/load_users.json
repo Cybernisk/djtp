@@ -1,37 +1,38 @@
 [
 {
-    "pk": 6,
-    "model": "auth.user",
+    "pk": 2,
+    "model": "accounts.user",
     "fields": {
-        "last_name": "",
-        "is_staff": false,
-        "user_permissions": [],
-        "date_joined": "2013-03-18T04:39:07.267",
-        "first_name": "",
-        "is_superuser": false,
-        "last_login": "2013-03-18T04:39:07.267",
-        "email": "user@blacklibrary.ru",
         "username": "user",
+        "first_name": "",
+        "last_name": "",
         "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2013-06-07T18:52:59.125",
         "groups": [],
-        "password": "pbkdf2_sha256$10000$USjoJGlW3UDE$E36fj8YIHHcWs+1mhvW+YKoEHFSTS20qjB2DNcl3zzM="
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$Nxrsb5kL3Nbx$a094vjRUNBZqaaYAO1Ivnp1/F9tgkn7YMGOePBf4kdc=",
+        "email": "user@blacklibrary.ru",
+        "date_joined": "2013-06-07T18:52:59.125"
     }
 },
 {
-    "pk": 7,
-    "model": "auth.user",
+    "pk": 1,
+    "model": "accounts.user",
     "fields": {
-        "last_name": "",
-        "is_staff": true,
-        "user_permissions": [],
-        "date_joined": "2013-03-18T04:39:48.091",
-        "first_name": "",
-        "is_superuser": true,
-        "last_login": "2013-03-18T04:39:48.091",
-        "email": "admin@blacklibrary.ru",
         "username": "admin",
+        "first_name": "",
+        "last_name": "",
         "is_active": true,
-        "password": "pbkdf2_sha256$10000$7SUooH857DFc$tFBrpXb5jXWKJ9ZgDuiwyDMlCcReUFvXMeXA75LcLvI="
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2013-06-07T18:53:17.221",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$BgOJZKJGyxFD$FUdyIx/BUJcxQjxuxwN07PSvOUzpYEKBDEpdLC5duyg=",
+        "email": "admin@blacklibrary.ru",
+        "date_joined": "2013-06-07T18:53:17.221"
     }
 }
 ]
