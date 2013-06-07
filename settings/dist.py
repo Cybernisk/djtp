@@ -177,6 +177,8 @@ LOGGING = {
     }
 }
 
+AUTH_USER_MODEL='accounts.User'
+
 #CONFIGURE
 DEFAULT_TEMPLATE='base.html'
 
