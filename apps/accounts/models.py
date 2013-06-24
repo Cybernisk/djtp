@@ -20,4 +20,4 @@ class User(AbstractUser):
         verbose_name_plural = _("Users")
 
 
-from signals import *
+from .signals import *

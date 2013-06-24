@@ -17,7 +17,11 @@ from django.core.exceptions import ImproperlyConfigured
 
 from django.http import Http404
 from datetime import datetime, time, date
-import simplejson as json
+
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 
 # safe method get obj.attr.attr1 and so on
@@ -36,7 +40,6 @@ safe_ret = (
 get_int_or_zero = lambda x: int(x) if (
     x.isdigit() if isinstance(x, basestring) else x
 ) else 0
-
 
 
 def get_top_object_or_None(Object, *args, **kwargs):
@@ -277,7 +280,7 @@ def get_model_instance_json(Obj, id):
 def create_path(path):
     try:
         os.stat(path)
-    except OSError, e:
+    except OSError as e:
         if e.errno == 2:
             os.makedirs(path)
         else:

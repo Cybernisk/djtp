@@ -3,11 +3,14 @@
 import os
 import re
 from django.test import TestCase
-from django.contrib.auth.models import User
+from apps.accounts.models import User
 from django.core.urlresolvers import reverse
 from apps.core.helpers import get_object_or_None
 from copy import deepcopy
-import simplejson as json
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 
 class JustTest(TestCase):
@@ -37,7 +40,7 @@ class JustTest(TestCase):
                     })
         if messages:
             for msg in messages:
-                print "Got assertion on %(url)s with %(user)s: %(err)s" % msg
+                print ("Got assertion on %(url)s with %(user)s: %(err)s" % msg)
             raise AssertionError
 
     def tearDown(self):
@@ -55,7 +58,7 @@ class JustTest(TestCase):
                 })
         if messages:
             for msg in messages:
-                print "Got %(err)s in %(key)s" % msg
+                print ("Got %(err)s in %(key)s" % msg)
             raise AssertionError
 
     def test_login(self):
@@ -63,10 +66,12 @@ class JustTest(TestCase):
             'username': 'user',
             'password': '123456'
         }
+        user = User.objects.get(username='user')
         url = reverse('accounts:login')
         response = self.client.post(url, login, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '/logout/')
+        self.assertEqual(response.context['user'], user)
 
     def test_logout(self):
         pass

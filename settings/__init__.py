@@ -1,2 +1,2 @@
-from dist import *
-from local import *
+from .dist import *
+from .local import *
