@@ -67,5 +67,5 @@ class UserAdminForm(forms.ModelForm):
 UserAdmin.form = UserAdminForm
 UserAdmin.add_form = UserCreationForm
 
-UserAdmin.fieldsets[1][1]['fields'] = ('first_name', 'last_name', 'email', 'is_translator', 'is_manager', )
+UserAdmin.fieldsets[1][1]['fields'] = ('first_name', 'last_name', 'email', )
 admin.site.register(User, UserAdmin)
