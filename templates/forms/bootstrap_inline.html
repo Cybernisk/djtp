@@ -1,0 +1,39 @@
+{% load i18n %}
+{% for field in form.visible_fields %}
+<div class="inline {{ field.css_classes }} {{ field.errors|yesno:"error," }}">
+    {% if field.errors %}{{ field.errors }}{% endif %}
+        <label id='{{ field.label_name }}'>{{ field.label_title }}</label>
+        {{ field }}
+        {% comment %}{% if field.help_text %}
+        <span class='help-text'>({{ field.help_text }})</span>
+        {% endif %}{% endcomment %}
+    {% if forloop.last and submit %}
+        <input type='submit' class='{{ submit_class }}' value='{{ submit }}'>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% if form.hidden_fields %}
+    <div class='hide'>
+    {% for field in form.hidden_fields %}
+        {{ field }}
+        {% if field.errors %}{{ field.errors }}{% endif %}
+    {% endfor %}
+    </div>
+{% endif %}
+{% if use_submit %}
+<div class="control-group">
+    <label class="control-label" for="id_submit">&nbsp;{{ field.label }}</label>
+    <div class="controls {{ submit_class }}">
+        <input type='submit' class='{{ submit_class_btn|default:"btn btn-success" }}'
+            value="{{ submit_value|default:"Отправить" }}">
+    </div>
+</div>
+{% endif %}
+{% if form.media %}{{ form.media }}{% endif %}
+<div class='control-group information'>
+    <label class='control-label' for='information'>&nbsp;</label>
+    <div class='controls'>
+        {% blocktrans %} Notice: fields marked with <span class='requireable'>(*)</span> are required{% endblocktrans %}
+    </div>
+</div>
