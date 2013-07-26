@@ -180,6 +180,10 @@ LOGGING = {
 AUTH_USER_MODEL='accounts.User'
 
 #CONFIGURE
+BRUTEFORCE_ITER=10
+SITE_URL='http://localhost:8000/'  # do not append slash here
+CONTACT_URL='http://localhost:8000/contact'
+EMAIL_FROM='noreply <noreply@localhost>'
 DEFAULT_TEMPLATE='base.html'
 
 USE_XHR_RESTRICTION=True

@@ -2,18 +2,21 @@
 #from django.utils import unittest
 import os
 import re
+from apps.core.tests import TestHelperMixin
 from django.test import TestCase
 from apps.accounts.models import User
 from django.core.urlresolvers import reverse
 from apps.core.helpers import get_object_or_None
 from copy import deepcopy
+from django.core import mail
+from django.utils.translation import ugettext_lazy as _
 try:
     import simplejson as json
 except ImportError:
     import json
 
 
-class JustTest(TestCase):
+class JustTest(TestHelperMixin, TestCase):
     fixtures = [
         'tests/fixtures/load_users.json',
     ]
@@ -80,7 +83,54 @@ class JustTest(TestCase):
         pass
 
     def test_password_recover(self):
-        pass
+        self.login(None)  # anonymous here
+        pattern = reverse('accounts:password-restore', args=('_sid_', ))
+        pattern = pattern.replace('_sid_', r'[\w\d]+')
+        # we have no any context within restore url with sid
+        # set for user protection, so we'll get it in our mailbox
+        reg = re.compile(pattern, re.U | re.I)
+
+        # urls we follow
+        initiate_url = reverse('accounts:password-restore-initiate')
+        initiated_url = reverse('accounts:password-restore-initiated')
+        restored_url = reverse('accounts:password-restored')
+
+        response = self.client.get(initiate_url)
+        self.assertEqual(response.status_code, 200)
+        post = {
+            'email': 'user@blacklibrary.ru'
+        }
+        response = self.client.post(initiate_url, post, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['get_full_path'], initiated_url)
+
+        # checking outbox
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, _("Your password requested to change"))
+        urls = re.findall(reg, mail.outbox[0].body)
+        self.assertEqual(len(urls), 1)
+        restore_url = urls[0]
+
+        restore_post = {
+            'password': '654321',
+            'password2': '654321'
+        }
+        response = self.client.post(restore_url, restore_post, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['get_full_path'], restored_url)
+
+        # try to login
+        login_url = reverse('accounts:login')
+        login_post = {
+            'username': 'user',
+            'password': restore_post['password']
+        }
+        response = self.client.post(login_url, login_post, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['user'].is_authenticated(), True)
+        # if you have got failure within code placed below
+        # please look for username user@blacklibrary.ru email origin
+        self.assertEqual(response.context['user'].username, 'user')
 
     def test_profile_update(self):
         pass
