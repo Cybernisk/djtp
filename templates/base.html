@@ -2,89 +2,52 @@
 <html lang="en">
 <head>{% load i18n %}
 {% block css %}
-<link rel='stylesheet' href='/media/css/bootstrap.min.css' media='screen'>
-<link rel='stylesheet' href='/media/css/chosen.css' media='screen'>
+<link rel='stylesheet' href='/media/css/bootstrap.css' media='screen'>
 <link rel='stylesheet' href='/media/css/whhg.css' media='screen'>
-<link rel='stylesheet' href='/media/styles/main.css' media='screen'>
 {% endblock %}
 {% block js %}
-<script type='text/javascript' src='/media/js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='/media/js/jquery-2.0.3.min.js'></script>
 <script type='text/javascript' src='/media/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='/media/js/chosen.jquery.js'></script>
+<script type='text/javascript' src='/media/js/chosen.min.js'></script>
 <script type='text/javascript' src='/media/js/ajax-chosen.min.js'></script>
 {% endblock %}
 </head>
 <body>
 <div class='wrapper' id='wrap'>
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
+
+<header class="navbar navbar-fixed-top">
     <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="{% url "core:index" %}">.template</a>
-      
-      {% if user.is_authenticated %}
-      <div class='btn-group pull-right'>
-          <a class='btn btn-black dropdown-toggle' data-toggle='dropdown' href='#'>
-          <i class='icon-user'></i>
-            {{ user.username }}
-          <i class='caret'></i></a>
-          <ul class='dropdown-menu'>
-                <li><a href='#'>View profile</a></li>
-                <li class='divider'>&nbsp;</li>
-                <li><a href='{% url "accounts:logout" %}'>Logout</a></li>
-          </ul>
-      </div>
-
-      {% comment %}
-      {% if perms.alter_permissions %}
-      <div class='btn-group pull-right'>
-         <a class='btn btn-black dropdown-toggle' data-toggle='dropdown' href='#'>
-             &nbsp;{% trans "admin" %} <i class='caret'></i></a>
-         <ul class='dropdown-menu'>
-             <li><a href='#'>{% trans "User permissions" %}</a></li>
-         </ul>
-      </div>
-      {% endif %}
-      {% endcomment %}
-      {% else %}
-          <div class='nav-collapse pull-right'>
-                <ul class='nav'>
-                    <li><a href="{% url "accounts:login" %}">{% trans "Login" %}</a></li>
-                </ul>
-          </div>
-      {% endif %} {# is auth #}
-     
-     <div class="nav-collapse">
-        <ul class="nav">
-          {% comment %}
-          {% if perms.change_news or perms.alter_news %}
-          <div class='btn-group pull-right'>
-          <a class='btn btn-info dropdown-toggle' data-toggle='dropdown' href='#'>
-            News
-          <i class='caret'></i></a>
-          <ul class='dropdown-menu'>
-                <li><a href='#'>View news</a></li>
-                <li><a href='#'>Add post</a></li>
-                <li class='divider'>&nbsp;</li>
-                <li><a href='#'>View drafts</a></li>
-          </ul>
-          </div>
-          {% else %}
-          <li class="active"><a href="#">News</a></li>
-          {% endif %}
-          {% endcomment %}
-
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
+        <div class='navbar-header'>
+            <a class="navbar-brand" href="{% url "core:index" %}">.template</a>
+            <button class="navbar-toggle" type='button'
+                    data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <nav class='collapse navbar-collapse'>
+            <ul class='nav navbar-nav pull-right'>
+                {% if not user.is_authenticated %}
+                <li><a href="{% url "accounts:login" %}">{% trans "Login" %}</a></li>
+                {% else %}
+                <li class='dropdown'>
+                  <a class='btn btn-black dropdown-toggle' data-toggle='dropdown' href='#'>
+                  <i class='icon-user'></i>
+                    {{ user.username }}
+                  <i class='caret'></i></a>
+                  <ul class='dropdown-menu'>
+                        <li><a href='#'>View profile</a></li>
+                        <li class='divider'>&nbsp;</li>
+                        <li><a href='{% url "accounts:logout" %}'>Logout</a></li>
+                  </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
-  </div>
-</div>
+</header>
+
 <div class='top spacer'></div>
 
 <div class='container'>

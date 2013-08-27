@@ -1,4 +1,34 @@
 {% extends base %} {% load i18n %}
 {% block content %}
     <h3><i class='icon-batman'></i> I am batman</h3>
+    <div class='col-lg-5'>
+        <strong>{% trans "Choose any option" %}</strong>
+        <select name='test' id='id_test' data-class='chosen' class='chosen form-control'>
+            <option value='1'>{% trans "First choice" %}</option>
+            <option value='2'>{% trans "Second choice" %}</option>
+        </select>
+
+        <div style='height: 20px;'></div>
+        <strong>{% trans "Please type any registered username" %}</strong>
+        <select name='users' id='id_users' class='form-control' data-class='ajax-chosen'
+                data-url='{% url "json:accounts:users" %}'>
+                <option></option>
+        </select>
+    </div>
+
+    <script type='text/javascript'>
+        $("#id_users").ajaxChosen({
+            type: "GET",
+            dataType: "json",
+            jsonTermKey: "q",
+            url: $(this).data('url'),
+        }, function(data){
+            results = [];
+            data.map(function(user){
+                results.push({ value: user.pk, text: user.username});
+            });
+            return results;
+        });
+    </script>
+
 {% endblock %}

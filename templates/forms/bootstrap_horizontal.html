@@ -1,10 +1,9 @@
 {% load i18n %}
 {% for field in form.visible_fields %}
-<div class="control-group {{ field.css_classes }} {{ field.errors|yesno:"error," }}">
+<div class="{% spaceless %}form-group {{ field.css_classes }} {{ field.errors|yesno:"error," }}{% endspaceless %}">
     {% if field.errors %}{{ field.errors }}{% endif %}
-    <label class="control-label" for="id_{{ field.name }}">{{ field.label }}:</label>
-    <div class="controls">
-        <label id='{{ field.label_name }}'>{{ field.label_title }}</label>
+    <label class="col-lg-2 control-label" for="id_{{ field.name }}">{{ field.label }}:</label>
+    <div class="col-lg-10">
         {{ field }}<br>
         {% if field.help_text %}
         <span class='help-text'>({{ field.help_text }})</span>
@@ -35,8 +34,8 @@
 {% endif %}
 {% if form.media %}{{ form.media }}{% endif %}
 <div class='control-group information'>
-    <label class='control-label' for='information'>&nbsp;</label>
-    <div class='controls'>
+    <label class='control-label col-lg-2' for='information'>&nbsp;</label>
+    <div class='col-lg-10'>
         {% blocktrans %} Notice: fields marked with <span class='requireable'>(*)</span> are required{% endblocktrans %}
     </div>
 </div>

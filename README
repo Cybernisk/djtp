@@ -2,6 +2,6 @@ Project: Template
 
 INCLUDED:
     simple auth: login, logout
-    bootstrap 2.0, chosen (jquery 1.7.1), ajaxChosen, noty
+    bootstrap 3.0, chosen 1.0 (jquery 2.0.3), ajaxChosen, noty
     helpers: render_to and stuff
     js helpers
