@@ -4,5 +4,5 @@ from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 
 urlpatterns = patterns('',
-    #url(r'^core/', include('apps.core.urls.json', namespace='core')),
+    url(r'^accounts/', include('apps.accounts.urls.json', namespace='accounts')),
 )
