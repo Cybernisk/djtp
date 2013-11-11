@@ -1,0 +1,3 @@
+[submodule "media/less/select2-bootstrap-css"]
+	path = media/less/select2-bootstrap-css
+	url = https://github.com/fk/select2-bootstrap-css.git

@@ -3,32 +3,47 @@
     <h3><i class='icon-batman'></i> I am batman</h3>
     <div class='col-lg-5'>
         <strong>{% trans "Choose any option" %}</strong>
-        <select name='test' id='id_test' data-class='chosen' class='chosen form-control'>
+        <select name='test' id='id_test' rel='select2' class='chosen form-control'>
             <option value='1'>{% trans "First choice" %}</option>
             <option value='2'>{% trans "Second choice" %}</option>
         </select>
 
         <div style='height: 20px;'></div>
         <strong>{% trans "Please type any registered username" %}</strong>
-        <select name='users' id='id_users' class='form-control' data-class='ajax-chosen'
-                data-url='{% url "json:accounts:users" %}'>
-                <option></option>
-        </select>
+        <br>
+        <input type='text' id='id_users_block' class='form-control'
+               data-field='username'
+               data-url='{% url "json:accounts:users" %}' />
     </div>
 
     <script type='text/javascript'>
-        $("#id_users").ajaxChosen({
-            type: "GET",
-            dataType: "json",
-            jsonTermKey: "q",
-            url: $(this).data('url'),
-        }, function(data){
-            results = [];
-            data.map(function(user){
-                results.push({ value: user.pk, text: user.username});
-            });
-            return results;
-        });
+      var id = null;
+      $("#id_users_block").select2({
+        id: function(data){return {id: data._id};},
+        placeholder: $(this).data('placeholder') || "Users",
+        minimumInputLength: 2,
+        ajax: {
+          url: function(){
+            return $(this).data('url');
+          },
+          dataType: 'json',
+          data: function(term, page){
+            return {
+              q: term
+            }
+          },
+          results: function(data, page){
+            return {results: data};
+          }
+        },
+        formatResult: function(item){
+          return item[$(this.element).data('field')];
+        },
+        formatSelection: function(data){
+          return data[$(this.element).data('field')];
+        },
+        escapeMarkup: function (m) { return m; }
+      });
     </script>
 
 {% endblock %}

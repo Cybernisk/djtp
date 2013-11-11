@@ -1,0 +1,22 @@
+{
+  "name": "template",
+  "version": "0.0.0",
+  "authors": [
+    "Tarvitz <tarvitz@blacklibrary.ru>"
+  ],
+  "license": "EULA",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": ">=3.0",
+    "jquery": ">=1.8.3",
+    "select2": ">=3.4.3",
+    "noty": ">=2.1.0"
+  }
+}

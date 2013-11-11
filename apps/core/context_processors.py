@@ -15,6 +15,7 @@ def global_referer(request):
 
 def global_settings(request):
     return {
+        'gs': settings,
         'global_settings': settings,
         'get_full_path': request.get_full_path(),
         'current_date': datetime.today(),

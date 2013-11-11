@@ -2,20 +2,22 @@
 <html lang="en">
 <head>{% load i18n %}
 {% block css %}
-<link rel='stylesheet' href='/media/css/bootstrap.css' media='screen'>
-<link rel='stylesheet' href='/media/css/whhg.css' media='screen'>
+<link rel='stylesheet' href='{{ gs.STATIC_URL }}components/select2/select2.css'>
+  <link rel='stylesheet' href='{{ gs.STATIC_URL }}css/bootstrap.css' media='screen'>
+<link rel='stylesheet' href='{{ gs.STATIC_URL }}css/whhg.css' media='screen'>
+
 {% endblock %}
 {% block js %}
-<script type='text/javascript' src='/media/js/jquery-2.0.3.min.js'></script>
-<script type='text/javascript' src='/media/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='/media/js/chosen.min.js'></script>
-<script type='text/javascript' src='/media/js/ajax-chosen.min.js'></script>
+<script type='text/javascript' src='{{ gs.STATIC_URL }}components/jquery/jquery.min.js'></script>
+<script type='text/javascript' src='{{ gs.STATIC_URL }}components/bootstrap/dist/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='{{ gs.STATIC_URL }}components/select2/select2.min.js'></script>
+
 {% endblock %}
 </head>
 <body>
 <div class='wrapper' id='wrap'>
 
-<header class="navbar navbar-fixed-top">
+<header class="navbar navbar-default">
     <div class="container">
         <div class='navbar-header'>
             <a class="navbar-brand" href="{% url "core:index" %}">.template</a>
@@ -48,8 +50,6 @@
     </div>
 </header>
 
-<div class='top spacer'></div>
-
 <div class='container'>
 {% block content %}{% endblock %}
 </div>
@@ -60,22 +60,22 @@
 </div>
 </body>
 <!-- noty -->
-<script type="text/javascript" src="/media/js/noty/jquery.noty.js"></script>
-<script type="text/javascript" src="/media/js/noty/promise.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/jquery.noty.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/promise.js"></script>
 
-<script type="text/javascript" src="/media/js/noty/layouts/top.js"></script>
-<script type="text/javascript" src="/media/js/noty/layouts/topLeft.js"></script>
-<script type="text/javascript" src="/media/js/noty/layouts/topRight.js"></script>
-<script type="text/javascript" src="/media/js/noty/layouts/topCenter.js"></script>
-<script type="text/javascript" src="/media/js/noty/layouts/center.js"></script>
-<script type="text/javascript" src="/media/js/noty/themes/default.js"></script>
-<script type="text/javascript" src="/media/js/noty/themes/override.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/layouts/top.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/layouts/topLeft.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/layouts/topRight.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/layouts/topCenter.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/layouts/center.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}components/noty/js/noty/themes/default.js"></script>
+<script type="text/javascript" src="{{ gs.STATIC_URL }}js/noty/themes/override.js"></script>
 
 {% block endjs %}{% endblock %}
 <script type='text/javascript'>
 $(document).ready(function(){
     $("[rel=tooltip]").tooltip({live: true});
-    $("select.chosen").chosen();
+    $("[rel=select2]").select2();
 {% block js_document_ready %}{% endblock %}
 });
 </script>
