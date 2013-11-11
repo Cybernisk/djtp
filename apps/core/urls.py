@@ -2,7 +2,8 @@ from django.conf.urls import patterns, include, url
 from apps.core.shortcuts import direct_to_template
 
 
-urlpatterns = patterns('apps.core.views',
+urlpatterns = patterns(
+    'apps.core.views',
     url('^$', 'index', name='index'),
     url('^test/(?P<pk>\d+)/redirect/$', 'test_redirect',
         name='test-redirect'),

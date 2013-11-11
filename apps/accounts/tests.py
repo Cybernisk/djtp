@@ -106,7 +106,8 @@ class JustTest(TestHelperMixin, TestCase):
 
         # checking outbox
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, _("Your password requested to change"))
+        self.assertEqual(mail.outbox[0].subject,
+                         _("Your password requested to change"))
         urls = re.findall(reg, mail.outbox[0].body)
         self.assertEqual(len(urls), 1)
         restore_url = urls[0]

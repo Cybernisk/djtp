@@ -1,6 +1,5 @@
 # coding: utf-8
-from django.contrib.sites.models import Site
-from datetime import datetime, timedelta, time
+from datetime import datetime
 from django.conf import settings
 
 
@@ -16,10 +15,8 @@ def global_referer(request):
 def global_settings(request):
     return {
         'gs': settings,
-        'global_settings': settings,
         'get_full_path': request.get_full_path(),
         'current_date': datetime.today(),
-        'global_site': Site.objects.get(),
     }
 
 

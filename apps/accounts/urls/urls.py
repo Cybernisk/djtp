@@ -1,7 +1,8 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 from apps.core.shortcuts import direct_to_template
 
-urlpatterns = patterns('apps.accounts.views',
+urlpatterns = patterns(
+    'apps.accounts.views',
     url(r'login/$', 'login', name='login'),
     url(r'logout/$', 'logout', name='logout'),
     url(r'password/(?P<sid>[\w\d]+)/restore/$', 'password_restore',

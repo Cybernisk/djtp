@@ -1,9 +1,5 @@
 # coding: utf-8
-#
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-from django.forms.util import ErrorList
-from apps.core.helpers import get_object_or_None
 
 
 class RequestModelForm(forms.ModelForm):

@@ -1,17 +1,15 @@
 # coding: utf-8
 import re
-import datetime
-from datetime import timedelta
 from django import template
 from django.template import Library, Node, TemplateSyntaxError
-from django.template.defaultfilters import striptags
-from apps.core.helpers import get_object_or_None
-from django.db.models import Q
 
 register = Library()
+
+
 class JSUrlNode(Node):
     def __init__(self, url):
         self.url = url
+
     def render(self, context):
         from django.core.urlresolvers import get_urlconf, get_resolver
         resolver = get_resolver(get_urlconf())
@@ -20,6 +18,7 @@ class JSUrlNode(Node):
             url = resolver.reverse_dict[self.url][0][0][0]
             jsurl = re.sub(re.compile('\%(\(\w+\))\w'), '%s', url)
         return "/%(url)s" %  { 'url': jsurl }
+
 
 @register.tag
 def jsurl(parser, tokens):
@@ -30,6 +29,7 @@ def jsurl(parser, tokens):
     if url[1] in ('"', '"') and url[-1] in ('"', "'"):
         url = url[1:-1]
     return JSUrlNode(url)
+
 
 class GetFormNode(Node):
     def __init__(self, init, varname, use_request):
@@ -46,6 +46,7 @@ class GetFormNode(Node):
             if self.use_request else form_class()
         return ''
 
+
 @register.tag
 def get_form(parser, tokens):
     bits = tokens.contents.split()
@@ -58,6 +59,7 @@ def get_form(parser, tokens):
     varname = bits[3]
     use_request = bool(bits[4]) if len(bits) > 4 else False
     return GetFormNode(init, varname, use_request)
+
 
 def raw(parser, token):
     # Whatever is between {% raw %} and {% endraw %} will be preserved as

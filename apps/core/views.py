@@ -1,14 +1,15 @@
 # Create your views here.
 # coding: utf-8
-from apps.core.helpers import render_to
-from django.http import HttpResponse
+from apps.core.helpers import render_to, model_json_encoder
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic.edit import (
+    TemplateResponseMixin
+)
 try:
     import simplejson as json
 except ImportError:
     import json
-from django.views.generic.edit import (
-    FormMixin, TemplateResponseMixin, DeletionMixin
-)
+
 
 
 @render_to('index.html')
@@ -31,7 +32,6 @@ def test_redirect(request, pk):
 
 
 class JSONViewMixin(TemplateResponseMixin):
-    #helpers
     def convert_context_to_json(self, context):
         return json.dumps(context, default=model_json_encoder)
 

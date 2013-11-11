@@ -6,10 +6,14 @@ from django.dispatch import receiver
 
 
 __all__ = [
-    'user_pre_saved', 
+    'user_pre_saved', 'setup_signals'
 ]
 
 
 @receiver(pre_save, sender=User)
 def user_pre_saved(instance, **kwargs):
     return instance
+
+
+def setup_signals():
+    pass
