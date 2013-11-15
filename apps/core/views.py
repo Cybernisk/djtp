@@ -6,6 +6,8 @@ from django.views.generic.edit import (
     TemplateResponseMixin
 )
 from django.views import generic
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 try:
     import simplejson as json
 except ImportError:
@@ -50,3 +52,10 @@ class JSONViewMixin(TemplateResponseMixin):
         return super(JSONViewMixin, self).render_to_response(
             context, **response_kwargs
         )
+
+
+class LoginRequiredMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(
+            request, *args, **kwargs)
