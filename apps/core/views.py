@@ -5,30 +5,15 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import (
     TemplateResponseMixin
 )
+from django.views import generic
 try:
     import simplejson as json
 except ImportError:
     import json
 
 
-
-@render_to('index.html')
-def index(request):
-    return {}
-
-
-def write_redirect(request, pk):
-    response = HttpResponse()
-    response.write('redirected with: %s' % pk)
-    return response
-
-
-@render_to('index.html')
-def test_redirect(request, pk):
-    return {
-        'redirect': 'core:write-redirect',
-        'redirect-args': (pk, )
-    }
+class IndexView(generic.TemplateView):
+    template_name = 'index.html'
 
 
 class JSONViewMixin(TemplateResponseMixin):
