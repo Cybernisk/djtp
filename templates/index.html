@@ -1,6 +1,7 @@
-{% extends base %} {% load i18n %}
+{% extends base %} {% load i18n tz %}
 {% block content %}
-    <h3><i class='icon-batman'></i> I am batman</h3>
+    <h3><i class='icon-batman'></i> I am batman.
+      It's {{ current_date|timezone:"America/New_York"|time:"H:i" }} in Gotham now</h3>
     <div class='col-lg-5'>
         <strong>{% trans "Choose any option" %}</strong>
         <select name='test' id='id_test' rel='select2' class='chosen form-control'>

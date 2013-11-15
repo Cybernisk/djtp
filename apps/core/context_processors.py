@@ -1,5 +1,6 @@
 # coding: utf-8
 from datetime import datetime
+from django.utils import timezone
 from django.conf import settings
 
 
@@ -16,7 +17,7 @@ def global_settings(request):
     return {
         'gs': settings,
         'get_full_path': request.get_full_path(),
-        'current_date': datetime.today(),
+        'current_date': timezone.now(),
     }
 
 

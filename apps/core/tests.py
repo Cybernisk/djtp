@@ -4,8 +4,13 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+from datetime import datetime
+import pytz
 
+from django.utils import timezone
 from django.test import TestCase
+from django.conf import settings
+from django.utils.unittest import skipIf
 
 
 class SimpleTest(TestCase):
@@ -43,3 +48,18 @@ class TestHelperMixin(object):
             for msg in messages:
                 print "Got %(err)s in %(key)s" % msg
             raise AssertionError
+
+
+class TimezonesTest(TestHelperMixin, TestCase):
+    def setUp(self):
+        pass
+
+    @skipIf(not settings.USE_TZ, "should be tz seuses")
+    def test_gmt_timezone(self):
+        london = datetime.utcnow().replace(
+            tzinfo=pytz.timezone('Europe/London'))
+        moscow = datetime.utcnow().replace(
+            tzinfo=pytz.timezone('Europe/Moscow'))
+
+        self.assertEqual(moscow.tzinfo, pytz.timezone('Europe/Moscow'))
+        self.assertEqual(london.tzinfo, pytz.timezone('Europe/London'))

@@ -1,4 +1,5 @@
 import re
+import pytz
 
 from django.db import models
 from django.core import validators
@@ -43,6 +44,12 @@ class User(PermissionsMixin, AbstractBaseUser):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    # extensions
+    tz = models.CharField(
+        _('tz'), help_text=_("user time zone"),
+        max_length=64, default='UTC',
+        choices=zip(pytz.all_timezones, pytz.all_timezones)
+    )
 
     objects = UserManager()
 
@@ -73,17 +80,20 @@ class UserSID(models.Model):
     sid = models.CharField(_("SID"), unique=True, max_length=512)
     # additional fields ?
     expired_date = models.DateTimeField(
-        _("Expires"), default=datetime.now() + timedelta(weeks=1)
+        _("Expires"),
+        default=timezone.now() + timedelta(weeks=1)
     )
     expired = models.BooleanField(
         _("expired?"), default=False
     )
     created_on = models.DateTimeField(
-        _("created on"), default=datetime.now,
+        _("created on"),
+        default=timezone.now,
         auto_now=True
     )
     updated_on = models.DateTimeField(
-        _('updated on'), default=datetime.now,
+        _('updated on'),
+        default=timezone.now,
         auto_now_add=True
     )
     objects = UserSIDManager()
