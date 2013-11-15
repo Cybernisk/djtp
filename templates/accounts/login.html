@@ -4,10 +4,15 @@
     {% csrf_token %}
     {% trans "Login" as login_text %}
     {% include "forms/bootstrap_horizontal.html" %}
-    {% include "forms/submit.html" with class="btn btn-primary" submit_text=login_text %}
     {% if form.errors %}
-        <a class='btn btn-inverse'
+    <div class='form-group'>
+      <label class='control-label col-lg-2'></label>
+      <div class='col-lg-10'>
+        <a class='btn btn-primary'
            href='{% url "accounts:password-restore-initiate" %}'>{% trans "Forgot password?" %}</a>
+        <button type='submit' class='btn btn-default'>{% trans "Login" %}</button>
+      </div>
+    </div>
     {% endif %}
 </form>
 {% endblock %}
