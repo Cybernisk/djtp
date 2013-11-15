@@ -1,9 +1,16 @@
 {% load i18n %}
+<div class='control-group information'>
+    <label class='control-label col-lg-2' for='information'>&nbsp;</label>
+    <div class='col-lg-10 alert alert-info'>
+        {% blocktrans %} Notice: fields marked with <span class='requireable'>(*)</span> are required{% endblocktrans %}
+    </div>
+</div>
+
 {% for field in form.visible_fields %}
 <div class="{% spaceless %}form-group {{ field.css_classes }} {{ field.errors|yesno:"error," }}{% endspaceless %}">
-    {% if field.errors %}{{ field.errors }}{% endif %}
     <label class="col-lg-2 control-label" for="id_{{ field.name }}">{{ field.label }}:</label>
     <div class="col-lg-10">
+        {% if field.errors %}{{ field.errors }}{% endif %}
         {{ field }}<br>
         {% if field.help_text %}
         <span class='help-text'>({{ field.help_text }})</span>
@@ -33,9 +40,3 @@
 </div>
 {% endif %}
 {% if form.media %}{{ form.media }}{% endif %}
-<div class='control-group information'>
-    <label class='control-label col-lg-2' for='information'>&nbsp;</label>
-    <div class='col-lg-10'>
-        {% blocktrans %} Notice: fields marked with <span class='requireable'>(*)</span> are required{% endblocktrans %}
-    </div>
-</div>

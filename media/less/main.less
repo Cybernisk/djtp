@@ -1,15 +1,9 @@
 /*spacers */
+@import "variables.less";
+
 @spacer-height: 80px;
 .top.spacer{
     height: @spacer-height;}
-/* news */
-.post{
-    margin-bottom: 10px;
-}
-.textarea.input{
-    width: 675px;
-}
-/* endof news */
 
 /* forms */
 .filter-form{
@@ -19,16 +13,27 @@
 .form-errors{
     color: red;
 }
-.control-group.required > label::before{
-    content: "(*) ";
-    color: #666;
-    font-size: 8pt;
-}
-.control-group.required > label:hover:before{
-    color: red;
-}
-.control-group > .errorlist{
-    margin-left: 180px;
-    color: #b94a48;
+
+.form-group{
+  .errorlist{
+    color: @state-danger-text;
     list-style-type: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    > li {
+      margin-left: 0px;
+    }
+  }
+  &.required{
+    > label{
+      &:before{
+        content: "(*) ";
+        color: lighten(@text-color, 30%);
+        font-size: 8pt;
+      }
+      &:hover{
+        &:before{color: red;}
+      }
+    }
+  }
 }

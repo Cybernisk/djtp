@@ -108,7 +108,23 @@ class PasswordRestoreView(generic.FormView):
         return redirect(self.get_success_url())
 
 
-class PasswordChangeView(LoginRequiredMixin, generic.UpdateView):
+class PasswordChangeView(LoginRequiredMixin, generic.FormView):
     form_class = PasswordChangeForm
     model = User
     success_url = reverse_lazy('accounts:password-changed')
+    template_name = 'accounts/password_change.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs.update({
+            'instance': self.request.user
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return redirect(self.get_success_url())
+
+
+class ProfileView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'accounts/profile.html'

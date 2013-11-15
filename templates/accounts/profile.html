@@ -1,0 +1,8 @@
+{% extends base %}{% load i18n %}
+{% block content %}
+  <div class='btn-group pull-right'>
+    <a href='{{ user.get_recover_password_url }}' class='btn btn-mini btn-primary'>{% trans "Recover password" %}</a>
+    <a href='{{ user.get_change_password_url }}' class='btn btn-mini btn-primary'>{% trans "Change password" %}</a>
+  </div>
+  <h3>{% trans "Profile" %}</h3>
+{% endblock %}

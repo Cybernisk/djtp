@@ -21,12 +21,20 @@ class JustTest(TestHelperMixin, TestCase):
         'tests/fixtures/load_users.json',
     ]
 
+    password_change_post = {
+        'old_password': '123456',
+        'new_password': '654321',
+        'new_password_repeat': '654321'
+    }
+
     def setUp(self):
         self.urls_void = [
         ]
         self.urls_registered = [
         ]
         self.get_object = get_object_or_None
+        self.user = User.objects.get(username='user')
+        self.login_url = reverse('accounts:login')
 
     def test_registered_urls(self):
         messages = []
@@ -80,7 +88,51 @@ class JustTest(TestHelperMixin, TestCase):
         pass
 
     def test_password_change(self):
-        pass
+        self.login('user')
+        url = self.user.get_change_password_url()
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post(url, self.password_change_post,
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.client.logout()
+
+        login_post = {
+            'username': self.user.username,
+            'password': self.password_change_post['new_password']
+        }
+        response = self.client.post(self.login_url, login_post, follow=True)
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertEqual(context['user'].is_authenticated(), True)
+        self.assertEqual(context['user'].username, self.user.username)
+
+    def test_password_change_wrong_password(self):
+        self.login('user')
+        url = self.user.get_change_password_url()
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        password_change_post = deepcopy(self.password_change_post)
+        password_change_post.update({
+            'old_password': 'wrong password',
+        })
+        response = self.client.post(url, password_change_post, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('form', response.context)
+        form = response.context['form']
+        self.assertNotEqual(form.errors, {})
+        self.assertEqual(form.errors['old_password'][0],
+                         unicode(_("Old password does not match")))
+        self.client.logout()
+
+        login_post = {
+            'username': self.user.username,
+            'password': password_change_post['new_password']
+        }
+        response = self.client.post(self.login_url, login_post, follow=True)
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertEqual(context['user'].is_authenticated(), False)
 
     def test_password_recover(self):
         self.login(None)  # anonymous here

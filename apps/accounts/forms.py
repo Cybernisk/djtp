@@ -115,35 +115,42 @@ class PasswordRestoreForm(RequestFormMixin,
 
 
 class PasswordChangeForm(forms.ModelForm):
+    required_css_class = 'required'
     old_password = forms.CharField(
-        label=_("Old password"), widget=forms.PasswordInput()
+        required=True,
+        label=_("Old password"),
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
     new_password = forms.CharField(
-        label=_("New password"), widget=forms.PasswordInput()
+        label=_("New password"),
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
     new_password_repeat = forms.CharField(
-        label=_("New password repeat"), widget=forms.PasswordInput()
+        label=_("New password repeat"),
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
 
     def clean(self):
         cd = self.cleaned_data
-        old_password = cd['old_password']
-        new_pwd = cd['new_password']
-        new_pwd_repeat = cd['new_password_repeat']
+        old_password = cd.get('old_password')
+        new_pwd = cd.get('new_password')
+        new_pwd_repeat = cd.get('new_password_repeat')
+        if not old_password:
+            return cd
         user = auth.authenticate(
             username=self.instance.username, password=old_password
         )
         if not user:
             msg = _("Old password does not match")
-            self._errors['password'] = ErrorList([msg])
-            if 'password' in cd:
-                del cd['password']
+            self._errors['old_password'] = ErrorList([msg])
+            if 'old_password' in cd:
+                cd.pop('old_password')
         if all((new_pwd, new_pwd_repeat) or (None, )):
             if new_pwd != new_pwd_repeat:
                 msg = _("Passwords don't match")
                 self._errors['new_password'] = ErrorList([msg])
                 if 'new_password' in cd:
-                    del cd['new_password']
+                    cd.pop('new_password')
         return cd
 
     def save(self, commit=True):
