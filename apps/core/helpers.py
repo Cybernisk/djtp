@@ -195,6 +195,7 @@ def model_json_encoder(obj, **kwargs):
     return obj
 
 
+# deprecated, todo: delete in further versions
 def render_to(template, allow_xhr=False, content_type='text/html'):
     _content_type = content_type
 
