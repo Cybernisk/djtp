@@ -1,3 +1,11 @@
+"""Models
+
+.. module:: account.models
+   :platform: Linux, Unix
+   :synopsis: accounts app models
+
+.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+"""
 import re
 import pytz
 
@@ -18,11 +26,8 @@ from django.conf import settings
 
 
 class User(PermissionsMixin, AbstractBaseUser):
-    #is_admin = models.BooleanField(
-    #    _("is_admin"), default=False,
-    #)
     """
-    An abstract base class implementing a fully featured User model with
+    Base class implementing a fully featured User model with
     admin-compliant permissions.
 
     Username, password and email are required. Other fields are optional.
@@ -68,17 +73,19 @@ class User(PermissionsMixin, AbstractBaseUser):
         return full_name.strip()
 
     def get_short_name(self):
-        "Returns the short name for the user."
+        """Returns the short name for the user."""
         return self.first_name
 
-    # urls
     def get_profile_url(self):
+        """returns profile url"""
         return reverse_lazy('accounts:profile')
 
     def get_recover_password_url(self):
+        """returns recover password url"""
         return reverse_lazy('accounts:password-restore-initiate')
 
     def get_change_password_url(self):
+        """returns change password url"""
         return reverse_lazy('accounts:password-change')
 
     class Meta:
@@ -87,6 +94,9 @@ class User(PermissionsMixin, AbstractBaseUser):
 
 
 class UserSID(models.Model):
+    """
+    UserSID class for security hashes store, uses for password recover process
+    """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_sid_set')
     sid = models.CharField(_("SID"), unique=True, max_length=512)
     # additional fields ?

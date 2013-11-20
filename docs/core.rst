@@ -1,6 +1,11 @@
 Core
 ====
 
+Forms
+-----
+.. automodule:: apps.core.forms
+    :members:
+
 Views
 -----
 .. automodule:: apps.core.views

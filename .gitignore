@@ -11,3 +11,4 @@ __pycache__
 /media/components
 /data/plop/*
 /settings/local.py
+/docs/_build

@@ -57,9 +57,11 @@ def get_object_or_None(Object, *args, **kwargs):
     :param args: queryset options for ``Object``
     :param kwargs: queryset options for ``Object``
     :return: ``Object`` instance
-    :examples: get_object_or_None(User, pk=1)
 
-    get_object_or_None('auth.User', username='johnrambo')
+    .. code-block:: python
+
+        user = get_object_or_None(User, pk=1)
+        user get_object_or_None('auth.User', username='johnrambo')
     """
     if isinstance(Object, basestring):
         app_label, model_name = Object.lower().split('.')
@@ -76,7 +78,11 @@ def get_object_or_404(Object, *args, **kwargs):
 
     :return: ``Object`` instance
     :exception: Http404
-    :examples: get_object_or_404(User, pk=1)
+
+    .. code-block:: python
+
+        user = get_object_or_404(User, pk=1)
+        user get_object_or_404('auth.User', username='johnrambo')
     """
     try:
         if hasattr(Object, 'objects'):
@@ -100,12 +106,12 @@ def get_content_type(Object):
     :returns: ``ContentType`` instance
     :param Object: Model class, instance, basestring classpath instance
     :exception: ObjectDoestNotExist, MultipleObjectsReturned
-    :examples:
-        get_content_type(User)
 
-        get_content_type(onsite_user)
+    .. code-block:: python
 
-        get_content_type('auth.user')
+        user_content_type = get_content_type(User)
+        user_content_type = get_content_type(onsite_user)
+        user_content_type = get_content_type('auth.user')
     """
 
     if callable(Object):  # class
