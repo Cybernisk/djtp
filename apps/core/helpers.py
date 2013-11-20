@@ -1,5 +1,13 @@
+"""Helpers.
+
+.. module:: core.helpers
+   :platform: Linux, Unix
+   :synopsis: Lesser helpers for routing operations
+.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+
+"""
 # coding: utf-8
-#
+
 from django.shortcuts import (
     render_to_response, get_object_or_404 as _get_object_or_404,
     redirect)
@@ -11,9 +19,12 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ImproperlyConfigured
 from django.template import Context
 from django.template.loader import get_template
+from django.core.exceptions import MultipleObjectsReturned
+from django.db.models import get_model
 
 from django.http import Http404
 from datetime import datetime, time, date
+from functools import wraps
 
 try:
     import simplejson as json
@@ -39,25 +50,34 @@ get_int_or_zero = lambda x: int(x) if (
 ) else 0
 
 
-def get_top_object_or_None(Object, *args, **kwargs):
-    if hasattr(Object, 'objects'):
-        obj = Object.objects.filter(*args, **kwargs)
-    else:
-        obj = Object.filter(*args, **kwargs)
-    if obj:
-        return obj[0]
-    return None
-
-
 def get_object_or_None(Object, *args, **kwargs):
+    """Get ``Object`` instance or None
+
+    :param Object: Model class or basestring classpath instance
+    :param args: queryset options for ``Object``
+    :param kwargs: queryset options for ``Object``
+    :return: ``Object`` instance
+    :examples: get_object_or_None(User, pk=1)
+
+    get_object_or_None('auth.User', username='johnrambo')
+    """
+    if isinstance(Object, basestring):
+        app_label, model_name = Object.lower().split('.')
+        _obj = get_model(app_label, model_name)
+    else:
+        _obj = Object
     try:
-        return _get_object_or_404(Object, *args, **kwargs)
-    except (Http404, Object.MultipleObjectsReturned):
+        return _get_object_or_404(_obj, *args, **kwargs)
+    except (Http404, MultipleObjectsReturned):
         return None
 
-
 def get_object_or_404(Object, *args, **kwargs):
-    """Retruns object or raise Http404 if it does not exist"""
+    """Get object or raise Http404 if it does not exist
+
+    :return: ``Object`` instance
+    :exception: Http404
+    :examples: get_object_or_404(User, pk=1)
+    """
     try:
         if hasattr(Object, 'objects'):
             return Object.objects.get(*args, **kwargs)
@@ -71,15 +91,21 @@ def get_object_or_404(Object, *args, **kwargs):
 
 def get_content_type(Object):
     """
-    works with ModelBase based classes, its instances
-    and with format string 'app_label.model_name', also supports
-    sphinx models and instances modification
-    source taken from warmist helpers source
+    Gets content_type for ``Object``.
+    Works with ModelBase based classes, its instances
+    and with format string ``'app_label.model_name'``, also supports
+    django-sphinx models and instances modification
     retrieves content_type or raise the common django Exception
-    Examples:
-    get_content_type(User)
-    get_content_type(onsite_user)
-    get_content_type('auth.user')
+
+    :returns: ``ContentType`` instance
+    :param Object: Model class, instance, basestring classpath instance
+    :exception: ObjectDoestNotExist, MultipleObjectsReturned
+    :examples:
+        get_content_type(User)
+
+        get_content_type(onsite_user)
+
+        get_content_type('auth.user')
     """
 
     if callable(Object):  # class
@@ -99,6 +125,10 @@ def get_content_type(Object):
 
 
 def get_content_type_or_None(Object):
+    """Gets ``Object`` content_type or returns None
+
+    :returns: ``ContentType`` instance or None
+    """
     try:
         return get_content_type(Object)
     except (Object.DoesNotExist, Object.MultipleObjectReturned):
@@ -106,6 +136,11 @@ def get_content_type_or_None(Object):
 
 
 def get_content_type_or_404(Object):
+    """Gets ``Object`` content_type or raises Http404
+
+    :returns: ``ContentType`` instance
+    :exception: Http404
+    """
     try:
         return get_content_type(Object)
     except (Object.DoesNotExist, Object.MultipleObjectReturned):
@@ -197,6 +232,14 @@ def model_json_encoder(obj, **kwargs):
 
 # deprecated, todo: delete in further versions
 def render_to(template, allow_xhr=False, content_type='text/html'):
+    """render decorator, takes different types of instances to HttpResponse
+    object instance.
+
+    .. note:: deprecated, use classed based views instead of ``@render_to``
+    :param allow_xhr: False, allows to use ``HttpResponse`` with ``content_type='application/json'`` as return object instance
+    :param content_type: ``'text/html'`` by default, sets content_type for ``HttpResponse`` object instance.
+    :returns: ``HttpResponse`` instance
+    """
     _content_type = content_type
 
     def decorator(func):
@@ -260,7 +303,13 @@ def render_to(template, allow_xhr=False, content_type='text/html'):
 
 
 def render_to_json(content_type='application/json'):
+    """Returns HttpResponse as json document
+
+    :param content_type: content_type, for example ``application/json``
+    :return: HttpResponse with given content_type
+    """
     def decorator(func):
+        @wraps(func)
         def wrapper(request, *args, **kwargs):
             dt = func(request, *args, **kwargs)
             response = HttpResponse(content_type=content_type)

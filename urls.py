@@ -16,6 +16,6 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('apps.core.urls', namespace='core')),
     url(r'^', include('apps.accounts.urls', namespace='accounts')),
-    url(r'^', include('apps.jsonapp.urls', namespace='json')),
+    url(r'^json/', include('apps.jsonapp.urls', namespace='json')),
 
 )

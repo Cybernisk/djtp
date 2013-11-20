@@ -1,5 +1,13 @@
-# Create your views here.
+"""An account classed based views.
+
+.. module:: account.views
+   :platform: Linux, Unix
+   :synopsis: Classed based views for accounts handling operations
+.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+
+"""
 # -*- coding: utf-8 -*-
+
 from apps.core.helpers import render_to, get_object_or_None
 from django.contrib.auth.decorators import login_required
 from apps.accounts.decorators import prevent_bruteforce
@@ -22,6 +30,7 @@ from django.contrib import auth
 
 
 class LoginView(generic.FormView):
+    """LoginView"""
     template_name = 'accounts/login.html'
     form_class = LoginForm
     success_url = reverse_lazy('core:index')
@@ -33,6 +42,7 @@ class LoginView(generic.FormView):
 
 
 class LogoutView(generic.TemplateView):
+    """LogoutView"""
     template_name = 'index.html'
 
     def get(self, request, *args, **kwargs):
@@ -41,6 +51,7 @@ class LogoutView(generic.TemplateView):
 
 
 class PasswordRestoreInitiateView(generic.FormView):
+    """Password Restore Initiate View"""
     template_name = 'accounts/password_restore_initiate.html'
     form_class = PasswordRestoreInitiateForm
     success_url = reverse_lazy('accounts:password-restore-initiated')
@@ -75,6 +86,7 @@ class PasswordRestoreInitiateView(generic.FormView):
 
 
 class PasswordRestoreView(generic.FormView):
+    """Password Restore View"""
     form_class = PasswordRestoreForm
     template_name = 'accounts/password_restore.html'
     success_url = reverse_lazy('accounts:password-restored')
@@ -109,6 +121,7 @@ class PasswordRestoreView(generic.FormView):
 
 
 class PasswordChangeView(LoginRequiredMixin, generic.FormView):
+    """Password Change View"""
     form_class = PasswordChangeForm
     model = User
     success_url = reverse_lazy('accounts:password-changed')
@@ -127,4 +140,5 @@ class PasswordChangeView(LoginRequiredMixin, generic.FormView):
 
 
 class ProfileView(LoginRequiredMixin, generic.TemplateView):
+    """Profile View"""
     template_name = 'accounts/profile.html'

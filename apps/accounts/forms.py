@@ -1,4 +1,13 @@
+"""An account forms.
+
+.. module:: account.forms
+   :platform: Linux, Unix
+   :synopsis: Account forms
+.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+
+"""
 # -*- coding: utf-8 -*-
+
 from django import forms
 from django.forms.util import ErrorList
 from django.utils.translation import ugettext_lazy as _
@@ -12,6 +21,7 @@ from apps.accounts.models import UserSID
 
 
 class LoginForm(forms.Form):
+    """Login Form"""
     username = forms.CharField(label=_("Username"))
     password = forms.CharField(
         label=_("Password"), widget=forms.PasswordInput())
@@ -37,6 +47,7 @@ class LoginForm(forms.Form):
 # noinspection PyArgumentList,PyUnresolvedReferences
 class BruteForceCheckMixin(object):
     """ depends on RequestModelForm """
+
     def __init__(self, *args, **kwargs):
         super(BruteForceCheckMixin, self).__init__(*args, **kwargs)
         if all(self.data or (None, )):
@@ -44,6 +55,12 @@ class BruteForceCheckMixin(object):
                 raise ImproperlyConfigured("You should add request")
 
     def save(self, commit=True):
+        """
+        Save brute force iteration value
+
+        :param commit: saves form instance, True by default
+        :return: form instance
+        """
         instance = super(BruteForceCheckMixin, self).save(commit)
         if 'brute_force_iter' in self.request.session:
             del self.request.session['brute_force_iter']
@@ -51,6 +68,13 @@ class BruteForceCheckMixin(object):
         return instance
 
     def is_valid(self, *args, **kwargs):
+        """
+        Increase brute force iteration value if form is invalid
+
+        :param args:
+        :param kwargs:
+        :return: is_valid statement (True or False)
+        """
         is_valid = super(BruteForceCheckMixin, self).is_valid(*args, **kwargs)
         if not is_valid:
             self.request['brute_force_iter'] = \
@@ -59,6 +83,7 @@ class BruteForceCheckMixin(object):
 
 
 class PasswordRestoreInitiateForm(forms.Form):
+    """Password Restore Initiation Form"""
     email = forms.CharField(
         label=_("Email"), help_text=_("Your email")
     )
@@ -77,6 +102,7 @@ class PasswordRestoreInitiateForm(forms.Form):
 class PasswordRestoreForm(RequestFormMixin,
                           BruteForceCheckMixin,
                           forms.ModelForm):
+    """Password Restore Form"""
     password = forms.CharField(
         label=_("Password"), widget=forms.PasswordInput()
     )
@@ -115,6 +141,7 @@ class PasswordRestoreForm(RequestFormMixin,
 
 
 class PasswordChangeForm(forms.ModelForm):
+    """Password Change Initiation Form"""
     required_css_class = 'required'
     old_password = forms.CharField(
         required=True,
