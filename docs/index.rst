@@ -9,12 +9,10 @@ Django Template's project documentation
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
-   :numbered:
-
-   accounts
-   core
+   install
+   modules
 
 Indices and tables
 ==================
