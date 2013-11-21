@@ -19,7 +19,8 @@ import os
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
-
+locale_dirs = ['locale/']
+gettext_compat = False
 
 def rel(path):
     return os.path.join(os.path.abspath('..'), path)

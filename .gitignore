@@ -12,3 +12,4 @@ __pycache__
 /data/plop/*
 /settings/local.py
 /docs/_build
+*.mo

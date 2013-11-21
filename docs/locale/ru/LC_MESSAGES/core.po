@@ -1,0 +1,389 @@
+#
+# NickolasFox <lilfoxster@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Template 0.0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-22 02:24+0400\n"
+"PO-Revision-Date: 2013-11-22 03:04+0400\n"
+"Last-Translator: NickolasFox <lilfoxster@gmail.com>\n"
+"Language-Team: ru <ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: utf-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../../core.rst:2
+msgid "Core"
+msgstr "Core"
+
+#: ../../core.rst:5 ../../../apps/core/forms.pydocstring of apps.core.forms:1
+msgid "Forms"
+msgstr "Формы"
+
+#: ../../../apps/core/forms.pydocstring of apps.core.forms.RequestFormMixin:1
+msgid "RequestFormMixin, store Django ``request`` instance in self.request"
+msgstr "RequestFormMixin, кладет экземпляр Django ``request`` в self.request"
+
+#: ../../../apps/core/forms.pydocstring of apps.core.forms.RequestFormMixin:3
+msgid ""
+"``request`` instance should be given via keywords while form instance init"
+msgstr ""
+"экземпляр ``request`` должен быть задан через keywords параметры при "
+"инициализации экземпляра формы"
+
+#: ../../../apps/core/forms.pydocstring of apps.core.forms.RequestModelForm:1
+msgid ""
+"RequestModelForm, bases on ``forms.ModelForm`` class use RequestFormMixin "
+"instead of it"
+msgstr ""
+"RequestModelForm, основан на классе ``forms.ModelForm``, используйте "
+"RequestFormMixin вместо него"
+
+#: ../../core.rst:10 ../../../apps/core/views.pydocstring of apps.core.views:1
+msgid "Views"
+msgstr "Представления"
+
+#: ../../../apps/core/views.pydocstring of apps.core.views.IndexView:1
+msgid "Index view"
+msgstr "Стартовое представление"
+
+#: ../../../apps/core/views.pydocstring of apps.core.views.JSONViewMixin:1
+msgid "JSON View Mixin"
+msgstr "Миксин JSON представления"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.convert_context_to_json:1
+msgid "convert context instance to json string"
+msgstr "конвертирует экземпляр контекста в json строку"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.convert_context_to_json:3
+msgid "context instance (``dict``)"
+msgstr "экземпляр контекста (``dict``))"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.convert_context_to_json:4
+msgid "``unicode`` string , json formatted"
+msgstr "``unicode`` строка, json совместимая"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.delete:1
+msgid ""
+"Calls delete() method on the fetched object and then redirects to the "
+"success URL."
+msgstr ""
+"Вызывает delete() метод для объекта, после осуществляет редирект к success "
+"URL."
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.form_valid:1
+msgid "form_valid method"
+msgstr "метод form_valid"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.render_to_response:1
+msgid "context instance"
+msgstr "экземпляр контекста"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.render_to_response:2
+msgid "response kwargs instance"
+msgstr "экземпляр response kwargs"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.JSONViewMixin.render_to_response:3
+msgid "``response`` object with ``content_type='application/json'``"
+msgstr "``response`` объект с ``content_type='application/json'``"
+
+#: ../../../apps/core/views.pydocstring of
+#: apps.core.views.LoginRequiredMixin:1
+msgid "LoginRequired View Mixin"
+msgstr "Миксин LoginRequired представление"
+
+#: ../../core.rst:15
+msgid "Helpers"
+msgstr "Помощники"
+
+#: ../../../apps/core/helpers.pydocstring of apps.core.helpers:1
+msgid "Helpers."
+msgstr "Помощники."
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type:1
+msgid ""
+"Gets content_type for ``Object``. Works with ModelBase based classes, its "
+"instances and with format string ``'app_label.model_name'``, also supports "
+"django-sphinx models and instances modification retrieves content_type or "
+"raise the common django Exception"
+msgstr ""
+"Получает content_type для ``Object``. Работает с классами, основанными на "
+"ModelBase, экземплярами этих классов и с форматированной строкой вида "
+"``'app_label.model_name'``. Также поддерживает django-sphinx модели и их "
+"экземпляры. Получает content_type или поднимает стандартное Django "
+"исключение (Exception)"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type:7
+#: apps.core.helpers.get_content_type_or_404:3
+msgid "``ContentType`` instance"
+msgstr "экземпляр ``ContentType``"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type:8
+msgid "Model class, instance, basestring classpath instance"
+msgstr "Класс Model, экземпляр классов Model, форматированная строка"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type:9
+msgid "ObjectDoestNotExist, MultipleObjectsReturned"
+msgstr "ObjectDoestNotExist, MultipleObjectsReturned"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type_or_404:1
+msgid "Gets ``Object`` content_type or raises Http404"
+msgstr "Получает ``Object`` content_type или поднимает исключение Http404"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type_or_404:4
+#: apps.core.helpers.get_object_or_404:4
+msgid "Http404"
+msgstr "Http404"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type_or_None:1
+msgid "Gets ``Object`` content_type or returns None"
+msgstr "Получает ``Object`` content_type или None"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_content_type_or_None:3
+msgid "``ContentType`` instance or None"
+msgstr "экземпляр ``ContentType`` или None"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_object_or_404:1
+msgid "Get object or raise Http404 if it does not exist"
+msgstr ""
+"Получает объект или поднимает исключение Http404, если объекта не существует"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_object_or_404:3
+#: apps.core.helpers.get_object_or_None:6
+msgid "``Object`` instance"
+msgstr "экземпляр ``Object``"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_object_or_None:1
+msgid "Get ``Object`` instance or None"
+msgstr "Получает экземпляр ``Object`` или None"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_object_or_None:3
+msgid "Model class or basestring classpath instance"
+msgstr "класс Model или форматированная строка"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.get_object_or_None:4
+#: apps.core.helpers.get_object_or_None:5
+msgid "queryset options for ``Object``"
+msgstr "queryset опции для ``Object``"
+
+#: ../../../apps/core/helpers.pydocstring of apps.core.helpers.render_to:1
+msgid ""
+"render decorator, takes different types of instances to HttpResponse object "
+"instance."
+msgstr ""
+"декторатор рендера, получает различные типы экземпляров и производит рендер "
+"в объект HttpResponse"
+
+#: ../../../apps/core/helpers.pydocstring of apps.core.helpers.render_to:4
+msgid "deprecated, use classed based views instead of ``@render_to``"
+msgstr ""
+"deprecated, используйте представления, основанные на классах вместо "
+"``@render_to``"
+
+#: ../../../apps/core/helpers.pydocstring of apps.core.helpers.render_to:5
+msgid ""
+"False, allows to use ``HttpResponse`` with ``content_type='application/"
+"json'`` as return object instance"
+msgstr ""
+"False, позволяет использовать ``HttpResponse`` вместе с "
+"``content_type='application/json'`` как результат для ответа"
+
+#: ../../../apps/core/helpers.pydocstring of apps.core.helpers.render_to:6
+msgid ""
+"``'text/html'`` by default, sets content_type for ``HttpResponse`` object "
+"instance."
+msgstr ""
+"по умолчанию ``'text/html'``, устанавливает content_type для экземпляра "
+"класса ``HttpResponse``."
+
+#: ../../../apps/core/helpers.pydocstring of apps.core.helpers.render_to:7
+msgid "``HttpResponse`` instance"
+msgstr "экземпляр класса ``HttpResponse``"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.render_to_json:1
+msgid "Returns HttpResponse as json document"
+msgstr "Возвращает HttpResponse как json документ"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.render_to_json:3
+msgid "content_type, for example ``application/json``"
+msgstr "content_type, например ``application/json``"
+
+#: ../../../apps/core/helpers.pydocstring of
+#: apps.core.helpers.render_to_json:4
+msgid "HttpResponse with given content_type"
+msgstr "HttpResponse с переданным content_type"
+
+#: ../../../apps/core/shortcuts.pydocstring of apps.core.shortcuts:1
+msgid "Shortcuts"
+msgstr "Сокращения"
+
+#: ../../../apps/core/shortcuts.pydocstring of
+#: apps.core.shortcuts.direct_to_template:1
+msgid "return response object"
+msgstr "возвращает объект ответа сервера (response)"
+
+#: ../../../apps/core/shortcuts.pydocstring of
+#: apps.core.shortcuts.direct_to_template:3
+msgid "Django ``HttpRequest`` instance"
+msgstr "экземпляр класса Django ``HttpRequest``"
+
+#: ../../../apps/core/shortcuts.pydocstring of
+#: apps.core.shortcuts.direct_to_template:4
+msgid ""
+"template file place on filesystem and stored in template directory ex. "
+"``'accounts/profile.html'``"
+msgstr ""
+"месторасположения файла шаблона на файловой системе, хранимой в директории "
+"шаблонов, например ``'accounts/profile.html'``"
+
+#: ../../../apps/core/shortcuts.pydocstring of
+#: apps.core.shortcuts.direct_to_template:5
+msgid ""
+"``dict`` instance with render context ``{'context': True, 'time': datetime."
+"now()}``"
+msgstr ""
+"экземпляр ``dict`` для рендера ``{'context: Truem 'time': datetime.now()}``"
+
+#: ../../../apps/core/shortcuts.pydocstring of
+#: apps.core.shortcuts.direct_to_template:6
+msgid "context processors"
+msgstr "контекстные процессоры"
+
+#: ../../../apps/core/shortcuts.pydocstring of
+#: apps.core.shortcuts.direct_to_template:7
+msgid "``HttpResponse`` object instance"
+msgstr "Экземпляр класса ``HttpResponse``"
+
+#: ../../core.rst:22 ../../../apps/core/decorators.pydocstring of
+#: apps.core.decorators:1
+msgid "Decorators"
+msgstr "Дектораторы"
+
+#: ../../../apps/core/decorators.pydocstring of
+#: apps.core.decorators.login_required_json:1
+msgid ""
+"login_required_json decorator, returns HttpResponse with "
+"``content_type='application/json'`` object"
+msgstr ""
+"декторатор login_required_json, возвращает объект HttpResponse вместе с "
+"типом ``content_type='application/json'``"
+
+#: ../../../apps/core/decorators.pydocstring of
+#: apps.core.decorators.login_required_json:4
+msgid "``HttpResponse`` with ``'application/json'`` content_type."
+msgstr "``HttpResponse`` c ``'application/json'`` content_type'ом."
+
+#: ../../../apps/core/decorators.pydocstring of
+#: apps.core.decorators.login_required_json:5
+msgid "Sets ``{\"success\": False}`` if user is not logged in"
+msgstr ""
+"Устанавливает ``{\"success: False}``, если пользователь не выполнил вход в "
+"систему"
+
+#: ../../core.rst:27
+msgid "Context Processors"
+msgstr "Контекстные процессоры"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors:1
+msgid "Context processors"
+msgstr "Контекстные процессоры"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_referer:1
+msgid "global_referer context processor"
+msgstr "контекстный процессор global_referer"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_referer:3
+msgid ""
+"current_referer sets to current URI (HTTP_HOST + PATH_INFO)  global_referer "
+"sets to HTTP_REFERER"
+msgstr ""
+"current_referer содержит текущий URI (HTTP_HOST + PATH_INFO)  global_referer "
+"устанавливает HTTP_REFERER"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_referer:3
+msgid "current_referer sets to current URI (HTTP_HOST + PATH_INFO)"
+msgstr "current_referer содержит текущий URI (HTTP_HOST + PATH_INFO)"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_referer:5
+msgid "global_referer sets to HTTP_REFERER"
+msgstr "global_referer содержит HTTP_REFERER"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_settings:1
+msgid "global settings context processor"
+msgstr "контекстный процессор глобальных настроек"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_settings:3
+msgid ""
+"gs as django.conf.settings object  get_full_path as ``request."
+"get_full_path()`` instance  current_date as ``timezone.now()``"
+msgstr ""
+"gs - объект django.conf.settings  get_full_path - экземпляр ``request."
+"get_full_path()``  current_date - ``timezone.now()``"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_settings:3
+msgid "gs as django.conf.settings object"
+msgstr "gs - объект django.conf.settings"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_settings:5
+msgid "get_full_path as ``request.get_full_path()`` instance"
+msgstr "get_full_path - экземпляр ``request.get_full_path()``"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.global_settings:7
+msgid "current_date as ``timezone.now()``"
+msgstr "current_date - ``timezone.now()``"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.session:1
+msgid "session context processor"
+msgstr "контекстный процессор сессии"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.session:3
+msgid "session as ``request.session`` instance"
+msgstr "session - экземпляр ``request.session``"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.template:1
+msgid "template context processor"
+msgstr "контекстный процессор темплейта"
+
+#: ../../../apps/core/context_processors.pydocstring of
+#: apps.core.context_processors.template:3
+msgid "base as ``settings.DEFAULT_TEMPLATE``"
+msgstr "base - ``settings.DEFAULT_TEMPLATE``"

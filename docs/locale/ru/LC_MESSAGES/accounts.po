@@ -1,0 +1,203 @@
+#
+# NickolasFox <lilfoxster@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Template 0.0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-22 02:24+0400\n"
+"PO-Revision-Date: 2013-11-22 02:36+0400\n"
+"Last-Translator: NickolasFox <lilfoxster@gmail.com>\n"
+"Language-Team: ru <ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: utf-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../../accounts.rst:2
+msgid "Accounts"
+msgstr "Accounts"
+
+#: ../../accounts.rst:5
+msgid "Forms"
+msgstr "Формы"
+
+#: ../../../apps/accounts/forms.pydocstring of apps.accounts.forms:1
+msgid "An account forms."
+msgstr "Формы приложения accounts."
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.BruteForceCheckMixin:1
+msgid "depends on RequestModelForm"
+msgstr "зависит от RequestModelForm"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.BruteForceCheckMixin.is_valid:1
+msgid "Increase brute force iteration value if form is invalid"
+msgstr "Увеличивает brute force iteration, если форма была заполнена не верно"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.BruteForceCheckMixin.is_valid:5
+msgid "is_valid statement (True or False)"
+msgstr "is_valid состояние (True или False)"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.BruteForceCheckMixin.save:1
+msgid "Save brute force iteration value"
+msgstr "Сохраняет значение brute force iteration"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.BruteForceCheckMixin.save:3
+msgid "saves form instance, True by default"
+msgstr "сохраняет экземпляр формы (класса), по умолчанию True"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.BruteForceCheckMixin.save:4
+msgid "form instance"
+msgstr "экземпляр формы"
+
+#: ../../../apps/accounts/forms.pydocstring of apps.accounts.forms.LoginForm:1
+msgid "Login Form"
+msgstr "Форма для входа"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.PasswordChangeForm:1
+msgid "Password Change Initiation Form"
+msgstr "Форма смены пароля"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.PasswordRestoreForm:1
+msgid "Password Restore Form"
+msgstr "Форма восстановления пароля"
+
+#: ../../../apps/accounts/forms.pydocstring of
+#: apps.accounts.forms.PasswordRestoreInitiateForm:1
+msgid "Password Restore Initiation Form"
+msgstr "Форма начала восстановления пароля (инициирования восстановления)"
+
+#: ../../accounts.rst:10 ../../../apps/accounts/models.pydocstring of
+#: apps.accounts.models:1
+msgid "Models"
+msgstr "Модели"
+
+#: ../../../apps/accounts/models.pydocstring of apps.accounts.models.User:1
+msgid ""
+"Base class implementing a fully featured User model with admin-compliant "
+"permissions."
+msgstr ""
+"Базовый класс, предоставляющий полную User модель с админ-совместимой "
+"системой прав."
+
+#: ../../../apps/accounts/models.pydocstring of apps.accounts.models.User:4
+msgid "Username, password and email are required. Other fields are optional."
+msgstr ""
+"Имя пользователя, пароль и email - обязательные поля. Остальные - опциональны"
+
+#: ../../../apps/accounts/models.pydocstring of
+#: apps.accounts.models.User.get_change_password_url:1
+msgid "returns change password url"
+msgstr "возвращает url смены пароля"
+
+#: ../../../apps/accounts/models.pydocstring of
+#: apps.accounts.models.User.get_full_name:1
+msgid "Returns the first_name plus the last_name, with a space in between."
+msgstr "Возвращает first_name и last_name с пробелом по средине."
+
+#: ../../../apps/accounts/models.pydocstring of
+#: apps.accounts.models.User.get_profile_url:1
+msgid "returns profile url"
+msgstr "возвращает url профиля"
+
+#: ../../../apps/accounts/models.pydocstring of
+#: apps.accounts.models.User.get_recover_password_url:1
+msgid "returns recover password url"
+msgstr "возвращает url восстановления пароля"
+
+#: ../../../apps/accounts/models.pydocstring of
+#: apps.accounts.models.User.get_short_name:1
+msgid "Returns the short name for the user."
+msgstr "возвращает короткое имя пользователя."
+
+#: ../../../apps/accounts/models.pydocstring of apps.accounts.models.UserSID:1
+msgid ""
+"UserSID class for security hashes store, uses for password recover process"
+msgstr ""
+"UserSID класс предназначен для сохранения ключей безопасности, используется "
+"в процессе восстановления пароля"
+
+#: ../../accounts.rst:15
+msgid "Views"
+msgstr "Представления"
+
+#: ../../accounts.rst:18
+msgid "Class based views"
+msgstr "Представления, основанные на классах"
+
+#: ../../../apps/accounts/views/views.pydocstring of
+#: apps.accounts.views.views:1
+msgid "An account classed based views."
+msgstr "Представления, основанные на классах accounts приложения"
+
+#: ../../../apps/accounts/views/views.pydocstring of
+#: apps.accounts.views.views.LoginView:1
+msgid "LoginView"
+msgstr "Представление входа"
+
+#: ../../../apps/accounts/views/views.pydocstring of
+#: apps.accounts.views.views.LogoutView:1
+msgid "LogoutView"
+msgstr "Представление выхода"
+
+#: ../../../apps/accounts/views/views.pydocstring of
+#: apps.accounts.views.views.PasswordChangeView:1
+msgid "Password Change View"
+msgstr "Представление смены пароля"
+
+#: ../../../apps/accounts/views/views.pydocstring of
+#: apps.accounts.views.views.PasswordRestoreInitiateView:1
+msgid "Password Restore Initiate View"
+msgstr "Представление инициации процедуры восстановления пароля"
+
+#: ../../../apps/accounts/views/views.pydocstring of
+#: apps.accounts.views.views.PasswordRestoreView:1
+msgid "Password Restore View"
+msgstr "Представление восстановления пароля"
+
+#: ../../../apps/accounts/views/views.pydocstring of
+#: apps.accounts.views.views.ProfileView:1
+msgid "Profile View"
+msgstr "Представление профиля"
+
+#: ../../accounts.rst:24
+msgid "JSON views"
+msgstr "JSON представления"
+
+#: ../../../apps/accounts/views/json.pydocstring of apps.accounts.views.json:1
+msgid "JSON module"
+msgstr "JSON модуль"
+
+#: ../../../apps/accounts/views/json.pydocstring of
+#: apps.accounts.views.json.users:1
+msgid "Returns users serialized within json"
+msgstr "Возвращает список пользователей сериализованных в json"
+
+#: ../../../apps/accounts/views/json.pydocstring of
+#: apps.accounts.views.json.users:3
+msgid "HttpRequest"
+msgstr "HttpRequest"
+
+#: ../../../apps/accounts/views/json.pydocstring of
+#: apps.accounts.views.json.users:4
+msgid "dict or queryset or model instance"
+msgstr "dict или queryset или экземпляр модели"
+
+#: ../../accounts.rst:29 ../../../apps/accounts/signals.pydocstring of
+#: apps.accounts.signals:1
+msgid "Signals"
+msgstr "Сигналы"
+
+#: ../../../apps/accounts/signals.pydocstring of
+#: apps.accounts.signals.user_pre_saved:1
+msgid "user pre save signal"
+msgstr "сигнал пред-сохранения (pre-save)"
