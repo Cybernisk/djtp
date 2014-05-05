@@ -6,4 +6,5 @@ urlpatterns = patterns(
     '',
     url(r'^accounts/', include('apps.accounts.urls.json',
                                namespace='accounts')),
+    url(r'^core/', include('apps.core.json_urls', namespace='core'))
 )
