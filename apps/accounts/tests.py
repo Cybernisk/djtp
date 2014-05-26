@@ -1,6 +1,7 @@
 # coding: utf-8
 #from django.utils import unittest
 import os
+import six
 import re
 from apps.core.tests import TestHelperMixin
 from django.test import TestCase
@@ -90,6 +91,7 @@ class JustTest(TestHelperMixin, TestCase):
     def test_password_change(self):
         self.login('user')
         url = self.user.get_change_password_url()
+
         response = self.client.get(url, follow=True)
         self.assertEqual(response.status_code, 200)
         response = self.client.post(url, self.password_change_post,
@@ -122,7 +124,7 @@ class JustTest(TestHelperMixin, TestCase):
         form = response.context['form']
         self.assertNotEqual(form.errors, {})
         self.assertEqual(form.errors['old_password'][0],
-                         unicode(_("Old password does not match")))
+                         six.u(_("Old password does not match")))
         self.client.logout()
 
         login_post = {

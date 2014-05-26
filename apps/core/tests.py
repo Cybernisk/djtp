@@ -46,7 +46,7 @@ class TestHelperMixin(object):
                 })
         if messages:
             for msg in messages:
-                print "Got %(err)s in %(key)s" % msg
+                print("Got %(err)s in %(key)s" % msg)
             raise AssertionError
 
 

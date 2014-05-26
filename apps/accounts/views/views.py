@@ -7,6 +7,7 @@
 
 """
 # -*- coding: utf-8 -*-
+import six
 
 from apps.core.helpers import render_to, get_object_or_None
 from django.contrib.auth.decorators import login_required
@@ -77,8 +78,8 @@ class PasswordRestoreInitiateView(generic.FormView):
                 'url': settings.CONTACT_URL
             }
             send_mail(
-                subject=unicode(_('Your password requested to change')),
-                message=unicode(msg),
+                subject=six.u(_('Your password requested to change')),
+                message=six.u(msg),
                 from_email=settings.EMAIL_FROM,
                 recipient_list=[sid.user.email]
             )

@@ -7,6 +7,7 @@
 
 """
 # coding: utf-8
+import six
 
 from django.shortcuts import (
     render_to_response, get_object_or_404 as _get_object_or_404,
@@ -46,7 +47,7 @@ safe_ret = (
 )
 
 get_int_or_zero = lambda x: int(x) if (
-    x.isdigit() if isinstance(x, basestring) else x
+    x.isdigit() if isinstance(x, six.string_types) else x
 ) else 0
 
 
@@ -63,7 +64,7 @@ def get_object_or_None(Object, *args, **kwargs):
         user = get_object_or_None(User, pk=1)
         user get_object_or_None('auth.User', username='johnrambo')
     """
-    if isinstance(Object, basestring):
+    if isinstance(Object, six.string_types):
         app_label, model_name = Object.lower().split('.')
         _obj = get_model(app_label, model_name)
     else:
@@ -124,7 +125,7 @@ def get_content_type(Object):
         else:
             app_label = Object._meta.app_label
             model = Object._meta.module_name
-    elif isinstance(Object, basestring):
+    elif isinstance(Object, six.string_types):
         app_label, model = Object.split('.')
     ct = ContentType.objects.get(app_label=app_label, model=model)
     return ct

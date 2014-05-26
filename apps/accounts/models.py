@@ -17,9 +17,9 @@ from django.contrib.auth.models import (
 )
 
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from apps.accounts.managers import UserSIDManager
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.conf import settings
 
 # Create your models here.
@@ -76,17 +76,20 @@ class User(PermissionsMixin, AbstractBaseUser):
         """Returns the short name for the user."""
         return self.first_name
 
-    def get_profile_url(self):
+    @staticmethod
+    def get_profile_url():
         """returns profile url"""
-        return reverse_lazy('accounts:profile')
+        return reverse('accounts:profile')
 
-    def get_recover_password_url(self):
+    @staticmethod
+    def get_recover_password_url():
         """returns recover password url"""
-        return reverse_lazy('accounts:password-restore-initiate')
+        return reverse('accounts:password-restore-initiate')
 
-    def get_change_password_url(self):
+    @staticmethod
+    def get_change_password_url():
         """returns change password url"""
-        return reverse_lazy('accounts:password-change')
+        return reverse('accounts:password-change')
 
     class Meta:
         verbose_name = _("User")
