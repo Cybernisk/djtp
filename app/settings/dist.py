@@ -1,7 +1,9 @@
 # Django settings for mong project.
 
 import os
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../../'))
+
 
 def rel(path):
     return os.path.join(PROJECT_ROOT, path)
@@ -19,7 +21,7 @@ DATABASES = {
     'default': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db.sqlite',                      # Or path to database file if using sqlite3.
+        'NAME': rel('db/db.sqlite'),                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -79,9 +81,6 @@ STATIC_URL = '/media/'
 # Additional locations of static files
 STATICFILES_DIRS = (
     rel('media'),
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
 # List of finder classes that know how to find static files in
@@ -89,7 +88,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -99,7 +97,6 @@ SECRET_KEY = 'ylh11rtk_8!wpd8e=v)0^5*#@pd%nc_6czkd+kfdvk&amp;n&amp;#wuo4'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -115,15 +112,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'app.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = 'app.wsgi.application'
 
 TEMPLATE_DIRS = (
     rel('templates'),
@@ -177,23 +172,14 @@ LOGGING = {
     }
 }
 
-AUTH_USER_MODEL='accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
 PLOP_ENABLE = False
 
 #CONFIGURE
-BRUTEFORCE_ITER=10
-SITE_URL='http://localhost:8000/'  # do not append slash here
-CONTACT_URL='http://localhost:8000/contact'
-EMAIL_FROM='noreply <noreply@localhost>'
-DEFAULT_TEMPLATE='base.html'
+BRUTEFORCE_ITER = 10
+SITE_URL = 'http://localhost:8000/'  # do not append slash here
+CONTACT_URL = 'http://localhost:8000/contact'
+EMAIL_FROM = 'noreply <noreply@localhost>'
+DEFAULT_TEMPLATE = 'base.html'
 
-USE_XHR_RESTRICTION=True
-OBJECTS_ON_PAGE=20
-TINY_MCE_JS='/media/tiny_mce/tiny_mce.js'
-TINY_MCE_IMAGE_LIST_URL='/images/list/' #works for user
-TINY_MCE_PLUGINS="autolink,lists,spellchecker,pagebreak,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template"
-TINY_MCE_BUTTONS=[
-    'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect|,bullist,numlist,|,charmap,spellchecker,|,fullscreen,|insertlayer,moveforward,movebackward,absolute,|,sub,sup,',
-    'newdocument,|,cut,copy,paste,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,preview,|,forecolor,backcolor|,ltr,rtl,|,hr,removeformat,visualaid,|,visualchars,nonbreaking,blockquote,pagebreak,',
-#    'tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen',
-]
+OBJECTS_ON_PAGE = 20

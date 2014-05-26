@@ -1,13 +1,13 @@
 *.py[co]
 *.sw[po]
-/db.sqlite
-/workgin
+/app/settings/local.py
+/db/*.*
+/data/working
 .sass-cache
 /media/styles
 __pycache__
 /media/css/bootstrap.css
 /media/components
 /data/plop/*
-/settings/local.py
 /docs/_build
 *.mo
