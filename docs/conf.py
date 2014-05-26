@@ -25,9 +25,6 @@ gettext_compat = False
 def rel(path):
     return os.path.join(os.path.abspath('..'), path)
 
-activate_this = rel('venv/bin/activate_this.py')
-execfile(activate_this, dict(__file__=activate_this))
-
 sys.path.insert(0, os.path.abspath('..'))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'app.settings')
 
