@@ -8,7 +8,7 @@
 """
 # coding: utf-8
 
-from apps.core.helpers import render_to, model_json_encoder
+from apps.core.helpers import model_json_encoder
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.edit import (
     TemplateResponseMixin
