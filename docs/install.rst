@@ -1,5 +1,6 @@
 Installation
 ============
+
 Dependecies
 -----------
 List of whole dependencies split into backend and frontend ones. But before start you should
@@ -30,7 +31,7 @@ for automatic installation or install listed packages by yourself.
 ``requirements/docs.txt`` contains dependence list for building documents for this project.
 It's not required for the proper run or work, so it could be treat as additional package deps.
 
-Frontent dependencies
+Frontend dependencies
 ~~~~~~~~~~~~~~~~~~~~~
 Nodejs ``bower`` had been chosen as frontend dependecies package manager. So you can install it
 via ``npm install -g bower`` and install frontend dep list:
@@ -39,10 +40,11 @@ via ``npm install -g bower`` and install frontend dep list:
 
     user@localhost template$ bower install
 
-Configuration
--------------
+Configuration and first run
+---------------------------
 **Step 1**
-You should tune up you database connection, store you settings into the
+
+Tune/set up you database connection, store you settings into the
 ``settings/local.py`` file, for example::
 
     DATABASES = {
@@ -60,6 +62,7 @@ You should tune up you database connection, store you settings into the
 or leave default settings which use sqlite engine.
 
 **Step 2**
+
 run ``./manage.py syncdb --migrate`` script from the top level of your project:
 
 .. code-block:: bash
@@ -67,3 +70,28 @@ run ``./manage.py syncdb --migrate`` script from the top level of your project:
     root@localhost template# npm install -g bower
     user@localhost template$ python ./manage.py syncdb --migrate
 
+**Step 3**
+
+run submodules initialization and update them
+
+.. code-block:: bash
+
+    user@localhost template$ git submodule init media/less/select2-bootstrap-css
+    user@localhost template$ git submodule update media/less/select2-bootstrap-css
+    ...
+
+**Step 4**
+
+compile bootstrap css file from less scheme one
+
+.. code-block:: bash
+
+    user@localhost template$ lessc --yui-compress --no-color media/less/bootstrap.less > media/css/bootstrap.css
+
+**Step 5**
+
+run dev server then open `url <localhost:8000>`_ in your browser
+
+.. code-block:: bash
+
+    (venv) user@localhost template$ python ./manage.py runserver 0.0.0.0:8000

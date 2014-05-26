@@ -29,7 +29,7 @@ activate_this = rel('venv/bin/activate_this.py')
 execfile(activate_this, dict(__file__=activate_this))
 
 sys.path.insert(0, os.path.abspath('..'))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'app.settings')
 
 # -- General configuration ------------------------------------------------
 
