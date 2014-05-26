@@ -123,8 +123,9 @@ class JustTest(TestHelperMixin, TestCase):
         self.assertIn('form', response.context)
         form = response.context['form']
         self.assertNotEqual(form.errors, {})
+
         self.assertEqual(form.errors['old_password'][0],
-                         six.u(_("Old password does not match")))
+                         six.text_type(_("Old password does not match")))
         self.client.logout()
 
         login_post = {

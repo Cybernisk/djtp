@@ -78,8 +78,8 @@ class PasswordRestoreInitiateView(generic.FormView):
                 'url': settings.CONTACT_URL
             }
             send_mail(
-                subject=six.u(_('Your password requested to change')),
-                message=six.u(msg),
+                subject=six.text_type(_('Your password requested to change')),
+                message=six.text_type(msg),
                 from_email=settings.EMAIL_FROM,
                 recipient_list=[sid.user.email]
             )
