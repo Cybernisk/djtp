@@ -1,2 +1,2 @@
 #!/bin/bash
-sass --watch --sourcemap -f --update media/sass:media/styles
+lessc --yui-compress --no-color media/less/bootstrap.less > media/css/bootstrap.css

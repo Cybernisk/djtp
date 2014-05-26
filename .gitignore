@@ -5,8 +5,6 @@
 .sass-cache
 /media/styles
 __pycache__
-/media/less/bootstrap
-/media/less/bootstrap-chosen
 /media/css/bootstrap.css
 /media/components
 /data/plop/*
