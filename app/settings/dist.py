@@ -80,6 +80,7 @@ STATIC_URL = '/media/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    'media',
     rel('media'),
 )
 
