@@ -1,8 +1,8 @@
-from django.db import models
+# coding: utf-8
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse_lazy as reverse
+
 from django import forms
-from django.forms.util import ErrorList
+
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
 
@@ -17,17 +17,20 @@ class UserCreationForm(forms.ModelForm):
         'password_mismatch': _("The two password fields didn't match."),
     }
     username = forms.RegexField(label=_("Username"), max_length=30,
-        regex=r'^[\w.@+-]+$',
-        help_text=_("Required. 30 characters or fewer. Letters, digits and "
-                      "@/./+/-/_ only."),
-        error_messages={
-            'invalid': _("This value may contain only letters, numbers and "
-                         "@/./+/-/_ characters.")})
+                                regex=r'^[\w.@+-]+$',
+                                help_text=_("Required. 30 characters "
+                                            "or fewer. Letters, digits and "
+                                            "@/./+/-/_ only."),
+                                error_messages={
+                                    'invalid': _(
+                                        "This value may contain only letters, "
+                                        "numbers and @/./+/-/_ characters.")})
     password1 = forms.CharField(label=_("Password"),
-        widget=forms.PasswordInput)
+                                widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Password confirmation"),
-        widget=forms.PasswordInput,
-        help_text=_("Enter the same password as above, for verification."))
+                                widget=forms.PasswordInput,
+                                help_text=_("Enter the same password as above,"
+                                            " for verification."))
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,

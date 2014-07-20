@@ -1,5 +1,5 @@
 # coding: utf-8
-from apps.core.helpers import get_object_or_None
+
 from django.db import models
 from uuid import uuid1
 
