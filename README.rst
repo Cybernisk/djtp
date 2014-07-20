@@ -92,8 +92,31 @@ After dependecies were installed you should build your own
 database/database file (if you decided use sqlite3)
 
 .. code-block:: bash
+    (venv) user@localhost$ mkdir db
+    (venv) user@localhost$ python ./manage.py syncdb --migrate
 
-    (venv) user@localhost$ python ./manage.py syncdb
+Also you should install `bower <https://www.npmjs.org/package/bower>`_ dependencies.
+``Bower`` is a nodejs package that serves for frontend dependecies package manager.
+
+.. code-block:: bash
+
+    user@localhost$ sudo npm install -g bower
+    # or
+    root@localhost$ npm install -g bower
+    # then from ``project root`` directory run
+    user@localhost$ bower install
+
+After all frontend dependencies installation some git submodules should be reinitialized for
+current project version:
+
+.. code-block:: bash
+
+    $ git submodule
+    48cd4b44bc94046cab20e0d345c978483684ab2e media/less/select2-bootstrap-css (v1.0-198-g48cd4b4)
+    $ git submodule init media/less/select2-bootstrap-css
+    $ git submodule update media/less/select2-bootstrap-css
+
+After successfull submodule update the last step is to compile bootstrap less into css file.
 
 Then compile project bootstrap markup using less compiler (tested with nodejs lessc)
 or run `./scripts/update_styles.sh` script
