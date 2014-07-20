@@ -174,6 +174,12 @@ LOGGING = {
 }
 
 AUTH_USER_MODEL = 'accounts.User'
+
+AUTHENTICATION_BACKENDS = (
+    # uncomment this to enable Email authentication
+    # 'apps.accounts.backends.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 PLOP_ENABLE = False
 
 #CONFIGURE

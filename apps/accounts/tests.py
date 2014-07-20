@@ -11,6 +11,9 @@ from apps.core.helpers import get_object_or_None
 from copy import deepcopy
 from django.core import mail
 from django.utils.translation import ugettext_lazy as _
+from django.utils.unittest import skipIf
+
+from django.conf import settings
 try:
     import simplejson as json
 except ImportError:
@@ -26,6 +29,14 @@ class JustTest(TestHelperMixin, TestCase):
         'old_password': '123456',
         'new_password': '654321',
         'new_password_repeat': '654321'
+    }
+    username_login = {
+        'username': 'user',
+        'password': '123456'
+    }
+    email_login = {
+        'username': 'user@blacklibrary.ru',
+        'password': '123456'
     }
 
     def setUp(self):
@@ -74,16 +85,32 @@ class JustTest(TestHelperMixin, TestCase):
             raise AssertionError
 
     def test_login(self):
-        login = {
-            'username': 'user',
-            'password': '123456'
-        }
-        user = User.objects.get(username='user')
+        login = self.username_login
+        user = User.objects.get(username=self.username_login['username'])
         url = reverse('accounts:login')
         response = self.client.post(url, login, follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '/logout/')
+
+        self.assertEqual(response.context['user'].is_authenticated(), True)
         self.assertEqual(response.context['user'], user)
+
+    @skipIf(('apps.accounts.backends.EmailAuthBackend'
+             not in settings.AUTHENTICATION_BACKENDS),
+            "EmailAuthBackend isn't enabled")
+    def test_login_by_email(self):
+        user = User.objects.get(email=self.email_login['username'])
+        url = reverse('accounts:login')
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertEqual(context['user'].is_authenticated(), False)
+
+        # login
+        response = self.client.post(url, self.email_login, follow=True)
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertEqual(context['user'].is_authenticated(), True)
+        self.assertEqual(context['user'], user)
 
     def test_logout(self):
         pass
