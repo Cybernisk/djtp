@@ -24,7 +24,7 @@ You can install using:
 
 .. code-block:: bash
 
-    user@localhost template$ pip -r install requirements/base.txt
+    user@localhost template$ pip install -r requirements/base.txt
 
 for automatic installation or install listed packages by yourself.
 
