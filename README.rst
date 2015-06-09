@@ -3,6 +3,9 @@ DJango Template Project
 .. image:: https://travis-ci.org/tarvitz/djtp.svg?branch=master
     :target: https://travis-ci.org/tarvitz/djtp
 
+.. image:: https://coveralls.io/repos/tarvitz/djtp/badge.svg
+  :target: https://coveralls.io/r/tarvitz/djtp
+
 
 * DJTP means Django template project
 
