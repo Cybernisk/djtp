@@ -2,7 +2,7 @@
 <html lang="en">
 <head>{% load i18n static %}
 {% block css %}
-<link rel='stylesheet' href='{% static "components/select2/select2.css" %}'>
+<link rel='stylesheet' href='{% static "components/select2/dist/css/select2.min.css" %}'>
 <link rel='stylesheet' href='{% static "css/bootstrap.css" %}' media='screen'>
 <link rel='stylesheet' href='{% static "css/whhg.css" %}' media='screen'>
 
@@ -10,7 +10,7 @@
 {% block js %}
 <script type='text/javascript' src='{% static "components/jquery/dist/jquery.min.js" %}'></script>
 <script type='text/javascript' src='{% static "components/bootstrap/dist/js/bootstrap.min.js" %}'></script>
-<script type='text/javascript' src='{% static "components/select2/select2.min.js" %}'></script>
+<script type='text/javascript' src='{% static "components/select2/dist/js/select2.full.min.js" %}'></script>
 
 {% endblock %}
 </head>
@@ -76,7 +76,7 @@
 $(document).ready(function(){
     $("[rel=tooltip]").tooltip({live: true});
     $("[rel=select2]").select2();
-{% block js_document_ready %}{% endblock %}
+    {% block js_document_ready %}{% endblock %}
 });
 </script>
 
