@@ -4,32 +4,16 @@
    :platform: Linux, Unix
    :synopsis: Lesser helpers for routing operations
 .. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
-
 """
 # coding: utf-8
 import six
-
-from django.shortcuts import (
-    render_to_response, get_object_or_404 as _get_object_or_404,
-    redirect)
-from django.http import HttpResponse
-from django.template import RequestContext
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
-from django.template.loader import render_to_string
-from django.core.exceptions import ImproperlyConfigured
-from django.template import Context
-from django.template.loader import get_template
-from django.core.exceptions import MultipleObjectsReturned
-from django.db.models import get_model
-
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.http import Http404
-from datetime import datetime, time, date
-from functools import wraps
 
 try:
     import simplejson as json
-except ImportError:
+except ImportError:  # pragma: no cover
     import json
 
 
@@ -39,7 +23,8 @@ except ImportError:
 safe_ret = (
     lambda x, y: reduce(
         lambda el, attr: (
-            getattr(el, attr)() if callable(getattr(el, attr)) else getattr(el, attr)
+            getattr(el, attr)() if callable(getattr(el, attr))
+            else getattr(el, attr)
         )
         if hasattr(el, attr) else None,
         [x, ] + y.split('.')
@@ -51,52 +36,8 @@ get_int_or_zero = lambda x: int(x) if (
 ) else 0
 
 
-def get_object_or_None(Object, *args, **kwargs):
-    """Get ``Object`` instance or None
-
-    :param Object: Model class or basestring classpath instance
-    :param args: queryset options for ``Object``
-    :param kwargs: queryset options for ``Object``
-    :return: ``Object`` instance
-
-    .. code-block:: python
-
-        user = get_object_or_None(User, pk=1)
-        user get_object_or_None('auth.User', username='johnrambo')
-    """
-    if isinstance(Object, six.string_types):
-        app_label, model_name = Object.lower().split('.')
-        _obj = get_model(app_label, model_name)
-    else:
-        _obj = Object
-    try:
-        return _get_object_or_404(_obj, *args, **kwargs)
-    except (Http404, MultipleObjectsReturned):
-        return None
-
-def get_object_or_404(Object, *args, **kwargs):
-    """Get object or raise Http404 if it does not exist
-
-    :return: ``Object`` instance
-    :exception: Http404
-
-    .. code-block:: python
-
-        user = get_object_or_404(User, pk=1)
-        user get_object_or_404('auth.User', username='johnrambo')
-    """
-    try:
-        if hasattr(Object, 'objects'):
-            return Object.objects.get(*args, **kwargs)
-        elif hasattr(Object, 'get'):
-            return Object.get(*args, **kwargs)
-        else:
-            raise Http404("Giving object has no manager instance")
-    except (Object.DoesNotExist, Object.MultipleObjectReturned):
-        raise Http404("Object does not exist or multiple object returned")
-
-
-def get_content_type(Object):
+# noinspection PyProtectedMember,PyUnresolvedReferences
+def get_content_type(obj):
     """
     Gets content_type for ``Object``.
     Works with ModelBase based classes, its instances
@@ -105,7 +46,8 @@ def get_content_type(Object):
     retrieves content_type or raise the common django Exception
 
     :returns: ``ContentType`` instance
-    :param Object: Model class, instance, basestring classpath instance
+    :param obj: Model class, instance, basestring classpath instance
+    :type obj: django.db.models.Model or str
     :exception: ObjectDoestNotExist, MultipleObjectsReturned
 
     .. code-block:: python
@@ -114,219 +56,38 @@ def get_content_type(Object):
         user_content_type = get_content_type(onsite_user)
         user_content_type = get_content_type('auth.user')
     """
-
-    if callable(Object):  # class
-        model = Object._meta.module_name
-        app_label = Object._meta.app_label
-    elif hasattr(Object, 'pk'):  # class instance
-        if hasattr(Object, '_sphinx') or hasattr(Object, '_current_object'):
-            model = Object._current_object._meta.module_name
-            app_label = Object._current_object._meta.app_label
-        else:
-            app_label = Object._meta.app_label
-            model = Object._meta.module_name
-    elif isinstance(Object, six.string_types):
-        app_label, model = Object.split('.')
+    app_label, model = '-1', '-1'
+    if callable(obj):  # class
+        model = obj._meta.model_name
+        app_label = obj._meta.app_label
+    elif hasattr(obj, 'pk'):  # class instance
+        app_label = obj._meta.app_label
+        model = obj._meta.model_name
+    elif isinstance(obj, six.string_types):
+        app_label, model = obj.split('.')
     ct = ContentType.objects.get(app_label=app_label, model=model)
     return ct
 
 
-def get_content_type_or_None(Object):
-    """Gets ``Object`` content_type or returns None
+# noinspection PyPep8Naming
+def get_content_type_or_None(source):
+    """Gets ``source`` content_type or returns None
 
     :returns: ``ContentType`` instance or None
     """
     try:
-        return get_content_type(Object)
-    except (Object.DoesNotExist, Object.MultipleObjectReturned):
+        return get_content_type(source)
+    except (ObjectDoesNotExist, MultipleObjectsReturned):
         return None
 
 
-def get_content_type_or_404(Object):
-    """Gets ``Object`` content_type or raises Http404
+def get_content_type_or_404(source):
+    """Gets ``source`` content_type or raises Http404
 
     :returns: ``ContentType`` instance
     :exception: Http404
     """
     try:
-        return get_content_type(Object)
-    except (Object.DoesNotExist, Object.MultipleObjectReturned):
+        return get_content_type(source)
+    except (ObjectDoesNotExist, MultipleObjectsReturned):
         raise Http404
-
-
-# deprecated
-def paginate(Obj, page, **kwargs):
-    from django.core.paginator import InvalidPage, EmptyPage
-    from apps.core.diggpaginator import DiggPaginator as Paginator
-    pages = kwargs['pages'] if 'pages' in kwargs else 20
-    if 'pages' in kwargs:
-        del kwargs['pages']
-    paginator = Paginator(Obj, pages, **kwargs)
-    try:
-        objects = paginator.page(page)
-    except (InvalidPage, EmptyPage):
-        objects = paginator.page(1)
-    objects.count = pages  # objects.end_index() - objects.start_index() +1
-    return objects
-
-
-def model_json_encoder(obj, **kwargs):
-    from django.db.models.base import ModelState
-    from django.db.models import Model
-    from django.db.models.query import QuerySet
-    from decimal import Decimal
-    from django.db.models.fields.files import ImageFieldFile
-    from django import forms
-    from django.utils.functional import Promise
-    is_human = kwargs.get('parse_humanday', False)
-    if isinstance(obj, QuerySet):
-        return list(obj)
-    elif isinstance(obj, Model):
-        dt = obj.__dict__
-        #obsolete better use partial
-        fields = ['_content_type_cache', '_author_cache', '_state']
-        for key in fields:
-            if key in dt:
-                del dt[key]
-        #normailize caches
-        disable_cache = kwargs['disable_cache'] \
-            if 'disable_cache' in kwargs else False
-
-        # disable cache if disable_cache given
-        for key in dt.keys():
-            if '_cache' in key and key.startswith('_'):
-                if not disable_cache:
-                    dt[key[1:]] = dt[key]
-                    #delete cache
-                    del dt[key]
-            if disable_cache and '_cache' in key:
-                del dt[key]
-
-        #delete restriction fields
-        if kwargs.get('fields_restrict'):
-            for f in kwargs.get('fields_restrict'):
-                if f in dt:
-                    del dt[f]
-        return dt
-    elif isinstance(obj, ModelState):
-        return 'state'
-    elif isinstance(obj, datetime):
-        return [
-            obj.year, obj.month, obj.day,
-            obj.hour, obj.minute, obj.second,
-            obj.isocalendar()[1]
-        ]
-    elif isinstance(obj, date):
-        return [obj.year, obj.month, obj.day]
-    elif isinstance(obj, time):
-        return obj.strftime("%H:%M")
-    elif isinstance(obj, ImageFieldFile):
-        return obj.url if hasattr(obj, 'url') else ''
-    elif isinstance(obj, forms.ModelForm) or isinstance(obj, forms.Form):
-        _form = {
-            'data': obj.data if hasattr(obj, 'data') else None,
-            'instance': obj.instance if hasattr(obj, 'instance') else None,
-        }
-        if obj.errors:
-            _form.update({'errors': obj.errors})
-        return _form
-    elif isinstance(obj, Promise):
-        return unicode(obj)
-    #elif isinstance(obj, Decimal):
-    #    return float(obj)
-    return obj
-
-
-# deprecated, todo: delete in further versions
-def render_to(template, allow_xhr=False, content_type='text/html'):
-    """render decorator, takes different types of instances to HttpResponse
-    object instance.
-
-    .. note:: deprecated, use classed based views instead of ``@render_to``
-    :param allow_xhr: False, allows to use ``HttpResponse`` with ``content_type='application/json'`` as return object instance
-    :param content_type: ``'text/html'`` by default, sets content_type for ``HttpResponse`` object instance.
-    :returns: ``HttpResponse`` instance
-    """
-    _content_type = content_type
-
-    def decorator(func):
-        def wrapper(request, *args, **kwargs):
-            response = HttpResponse(content_type='application/json')
-            dt = func(request, *args, **kwargs)
-            if not isinstance(dt, dict):
-                raise ImproperlyConfigured(
-                    "render_to should take dict instance not %s" % type(dt)
-                )
-            # overrides
-            tmpl = dt.get('_template', template)
-            content_type = dt.get('_content_type', _content_type)
-
-            force_ajax = request.META.get('HTTP_X_FORCE_XHTTPRESPONSE', None)
-            raw_html = request.META.get('HTTP_X_RAW_HTML', None)
-
-            if 'redirect' in dt:
-                if force_ajax or request.is_ajax():
-                    response.write(json.dumps({"status": "ok"}))
-                    return response
-
-                args = dt.get('redirect-args', [])
-                if args:
-                    redr = reverse(dt['redirect'], args=args)
-                    return redirect(redr)
-                return redirect(dt['redirect'])
-
-            if content_type.lower() == 'text/html':
-                if force_ajax and allow_xhr:
-                    response.write(json.dumps(dt, default=model_json_encoder))
-                    return response
-                if raw_html:
-                    dt.update({'base': 'base_raw.html'})
-                return render_to_response(
-                    tmpl,
-                    dt,
-                    context_instance=RequestContext(request))
-
-            elif content_type.lower() == 'text/csv':
-                response = HttpResponse(content_type=content_type)
-                response['Content-Disposition'] = 'attachment; filename="export.csv"'
-                response.write(
-                    render_to_string(tmpl, dt)
-                )
-                return response
-
-            elif content_type.lower() in ('text/json', 'text/javascript',
-                                          'application/json'):
-                response = HttpResponse()
-                response['Content-Type'] = content_type
-                tmpl = get_template(tmpl)
-                response.write(tmpl.render(Context(dt)))
-                return response
-            else:
-                return render_to_response(
-                    tmpl,
-                    dt, context_instance=RequestContext(request))
-        return wrapper
-    return decorator
-
-
-def render_to_json(content_type='application/json'):
-    """Returns HttpResponse as json document
-
-    :param content_type: content_type, for example ``application/json``
-    :return: HttpResponse with given content_type
-    """
-    def decorator(func):
-        @wraps(func)
-        def wrapper(request, *args, **kwargs):
-            dt = func(request, *args, **kwargs)
-            response = HttpResponse(content_type=content_type)
-            response.write(json.dumps(dt, default=model_json_encoder))
-            return response
-        return wrapper
-    return decorator
-
-
-def get_model_content_type(Obj):
-    return ContentType.objects.get(
-        app_label=Obj._meta.app_label,
-        model=Obj._meta.module_name)

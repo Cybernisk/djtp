@@ -1,13 +1,10 @@
-# coding: utf-8
-#from django.utils import unittest
-import os
+# -*- coding: utf-8 -*-
 import six
 import re
 from apps.core.tests import TestHelperMixin
 from django.test import TestCase
 from apps.accounts.models import User
 from django.core.urlresolvers import reverse
-from apps.core.helpers import get_object_or_None
 from copy import deepcopy
 from django.core import mail
 from django.utils.translation import ugettext_lazy as _
@@ -48,7 +45,6 @@ class JustTest(TestHelperMixin, TestCase):
         ]
         self.urls_registered = [
         ]
-        self.get_object = get_object_or_None
         self.user = User.objects.get(username='user')
         self.login_url = reverse('accounts:login')
 

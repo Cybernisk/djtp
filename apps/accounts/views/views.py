@@ -9,9 +9,9 @@
 # -*- coding: utf-8 -*-
 import six
 
-from apps.core.helpers import get_object_or_None
 
 from apps.accounts.decorators import prevent_bruteforce
+from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.conf import settings
@@ -115,7 +115,7 @@ class PasswordRestoreView(generic.FormView):
 
     def get_user_sid_instance(self):
         if not hasattr(self, 'user_sid'):
-            self.user_sid = get_object_or_None(
+            self.user_sid = get_object_or_404(
                 UserSID, sid=self.kwargs.get('sid', 0), expired=False)
             if not self.user_sid:
                 self.request.session['brute_force_iter'] \

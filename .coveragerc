@@ -2,6 +2,7 @@
 branch = True
 omit = 
     /*tests*.py
+    apps/core/diggpaginator.py
 
 [report]
 exclude_lines =
