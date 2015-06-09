@@ -23,10 +23,9 @@ bunch of helper code which (app) allows you to make your own project a little bi
 
 Backend dependecies (requirements/base.txt)
 ```````````````````````````````````````````
-* Django 1.6+
-* South 0.8.2+
-* pytz 2013.8+
-* simplejson 3.3.0
+* Django 1.8+
+* pytz 2015.4+
+* simplejson 3.7.3
 
 All backend dependencies you can installed via pip using:
 .. code-block::
@@ -35,10 +34,10 @@ All backend dependencies you can installed via pip using:
 
 Frontend dependecies
 ````````````````````
-* bootstrap 3.0+,
-* jquery 1.8.3+,
-* select2 3.4.3+
-* noty 2.1.0+
+* bootstrap 3.3+,
+* jquery 2.1+,
+* select2 4.0+
+* noty 2.3.5+
 
 All frontend dependencies you can installed via ``bower`` (it depens on nodejs 0.10+) using:
 .. code-block::
@@ -85,6 +84,25 @@ or via `./scripts/run_tests.sh` script
 .. code-block:: bash
 
    user@localhost$ ./scripts/run_tests.sh apps.accounts
+
+Py.Test
+~~~~~~~
+Use allure and pytest for better reports generating:
+
+.. code-block:: bash
+
+  user@localhost$ ./scripts/run_pytest.sh
+
+Coverage
+~~~~~~~~
+with py.test you could use pytest-cov (code coverage) to generate stats around
+your code being tests with unit tests.
+
+.. code-block:: bash
+
+  user@localhost$ coverage run --source=apps -m py.test --alluredir=db/reports/allure apps/
+  user@localhost$ coverage report --fail-under=90
+  user@localhist$ coverage html
 
 First run
 ~~~~~~~~~
