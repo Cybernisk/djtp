@@ -9,6 +9,10 @@ install:
   - "if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install -r requirements/base.txt; fi"
   - "if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]]; then pip install -r requirements/base-py3.txt; fi"
   - "if [[ $TRAVIS_PYTHON_VERSION == '3.4' ]]; then pip install -r requirements/base-py3.txt; fi"
+  pip install coveralls
 
 script:
-  - "./scripts/run_tests.sh"
+  - "./scripts/run_pytest.sh"
+
+after_success:
+    COERALLS_REPO_TOKEN=LcHkYOvfnUo5Vicw7j8OroDSYjc9U75iV coveralls
