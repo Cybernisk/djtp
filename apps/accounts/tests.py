@@ -19,12 +19,11 @@ try:
 except ImportError:
     import json
 
-try:
-    import allure
-except ImportError:
-    allure = None
+import allure
+from allure.constants import Severity
 
 
+@allure.feature('Apps: accounts')
 class JustTest(TestHelperMixin, TestCase):
     fixtures = [
         'tests/fixtures/load_users.json',
@@ -53,6 +52,8 @@ class JustTest(TestHelperMixin, TestCase):
         self.user = User.objects.get(username='user')
         self.login_url = reverse('accounts:login')
 
+    @allure.story('urls')
+    @allure.severity(Severity.CRITICAL)
     def test_registered_urls(self):
         messages = []
         for user in ('admin', 'user'):
@@ -89,6 +90,8 @@ class JustTest(TestHelperMixin, TestCase):
                 print ("Got %(err)s in %(key)s" % msg)
             raise AssertionError
 
+    @allure.story('login')
+    @allure.severity(Severity.BLOCKER)
     def test_login(self):
         login = self.username_login
         user = User.objects.get(username=self.username_login['username'])
@@ -102,6 +105,8 @@ class JustTest(TestHelperMixin, TestCase):
     @skipIf(('apps.accounts.backends.EmailAuthBackend'
              not in settings.AUTHENTICATION_BACKENDS),
             "EmailAuthBackend isn't enabled")
+    @allure.story('login')
+    @allure.severity(Severity.NORMAL)
     def test_login_by_email(self):
         user = User.objects.get(email=self.email_login['username'])
         url = reverse('accounts:login')
@@ -117,9 +122,17 @@ class JustTest(TestHelperMixin, TestCase):
         self.assertEqual(context['user'].is_authenticated(), True)
         self.assertEqual(context['user'], user)
 
+    @allure.story('login')
+    @allure.severity(Severity.BLOCKER)
     def test_logout(self):
-        pass
+        self.login('user')
+        response = self.client.get(reverse('accounts:logout'))
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertEqual(context['user'].is_authenticated(), False)
 
+    @allure.story('password')
+    @allure.severity(Severity.BLOCKER)
     def test_password_change(self):
         self.login('user')
         url = self.user.get_change_password_url()
@@ -141,6 +154,8 @@ class JustTest(TestHelperMixin, TestCase):
         self.assertEqual(context['user'].is_authenticated(), True)
         self.assertEqual(context['user'].username, self.user.username)
 
+    @allure.story('login')
+    @allure.severity(Severity.BLOCKER)
     def test_password_change_wrong_password(self):
         self.login('user')
         url = self.user.get_change_password_url()
@@ -169,6 +184,8 @@ class JustTest(TestHelperMixin, TestCase):
         context = response.context
         self.assertEqual(context['user'].is_authenticated(), False)
 
+    @allure.story('login')
+    @allure.severity(Severity.BLOCKER)
     def test_password_recover(self):
         self.login(None)  # anonymous here
         pattern = reverse('accounts:password-restore', args=('_sid_', ))
@@ -220,8 +237,12 @@ class JustTest(TestHelperMixin, TestCase):
         # please look for username user@blacklibrary.ru email origin
         self.assertEqual(response.context['user'].username, 'user')
 
+    @allure.story('login')
+    @allure.severity(Severity.BLOCKER)
     def test_profile_update(self):
         pass
 
+    @allure.story('login')
+    @allure.severity(Severity.BLOCKER)
     def test_register(self):
         pass
