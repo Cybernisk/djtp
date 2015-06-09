@@ -120,12 +120,10 @@ class UserSID(models.Model):
     )
     created_on = models.DateTimeField(
         _("created on"),
-        default=timezone.now,
         auto_now=True
     )
     updated_on = models.DateTimeField(
         _('updated on'),
-        default=timezone.now,
         auto_now_add=True
     )
     objects = UserSIDManager()

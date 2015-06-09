@@ -137,7 +137,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'apps.core',
     'apps.accounts',
-    'south',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -177,12 +176,11 @@ AUTH_USER_MODEL = 'accounts.User'
 
 AUTHENTICATION_BACKENDS = (
     # uncomment this to enable Email authentication
-    # 'apps.accounts.backends.EmailAuthBackend',
+    'apps.accounts.backends.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-PLOP_ENABLE = False
 
-#CONFIGURE
+
 BRUTEFORCE_ITER = 10
 SITE_URL = 'http://localhost:8000/'  # do not append slash here
 CONTACT_URL = 'http://localhost:8000/contact'

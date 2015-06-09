@@ -5,7 +5,8 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # Examples:
     # url(r'^$', 'template.views.home', name='home'),
     # url(r'^template/', include('template.foo.urls')),
@@ -17,6 +18,4 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('apps.core.urls', namespace='core')),
     url(r'^', include('apps.accounts.urls', namespace='accounts')),
-    url(r'^json/', include('apps.jsonapp.urls', namespace='json')),
-
 )
