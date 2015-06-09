@@ -1,0 +1,7 @@
+lxml==3.4.4
+namedlist==1.7
+py==1.4.28
+pytest==2.7.1
+pytest-allure-adaptor==1.6.5
+pytest-django==2.8.0
+pytz==2015.4

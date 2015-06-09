@@ -19,6 +19,11 @@ try:
 except ImportError:
     import json
 
+try:
+    import allure
+except ImportError:
+    allure = None
+
 
 class JustTest(TestHelperMixin, TestCase):
     fixtures = [

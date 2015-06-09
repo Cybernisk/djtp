@@ -11,3 +11,11 @@ __pycache__
 /data/plop/*
 /docs/_build
 *.mo
+/venv
+/ve
+/ve3
+/venv3
+/data
+/db
+/pyve
+/.idea
