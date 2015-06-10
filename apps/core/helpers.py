@@ -10,6 +10,7 @@ import six
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.http import Http404
+from functools import reduce
 
 try:
     import simplejson as json
