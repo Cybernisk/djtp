@@ -17,10 +17,6 @@ class EmailAuthBackend(object):
                 return user
         except User.DoesNotExist:
             return None
-        except User.MultipleObjectsReturned:
-            user = User.objects.filter(email=username)[0]
-            if user.check_password(password):
-                return user
 
     def get_user(self, user_id):
         try:

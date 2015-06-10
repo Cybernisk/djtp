@@ -118,6 +118,35 @@ class JustTest(TestHelperMixin, TestCase):
         self.assertEqual(context['user'].is_authenticated(), True)
         self.assertEqual(context['user'], user)
 
+    @skipIf(('apps.accounts.backends.EmailAuthBackend'
+             not in settings.AUTHENTICATION_BACKENDS),
+            "EmailAuthBackend isn't enabled")
+    @allure.story('login')
+    @allure.severity(Severity.NORMAL)
+    def test_login_by_email_failure(self):
+        """
+        test email login failure flow
+        """
+        with allure.step('setup environment'):
+            user = User.objects.get(email=self.email_login['username'])
+            url = reverse('accounts:login')
+        with allure.step('check'):
+            response = self.client.get(url, follow=True)
+            self.assertEqual(response.status_code, 200)
+            context = response.context
+            self.assertEqual(context['user'].is_authenticated(), False)
+        with allure.step('login'):
+            # login
+            response = self.client.post(
+                url,
+                {'username': 'no-user@example.org', 'password': '123456'},
+                follow=True
+            )
+            self.assertEqual(response.status_code, 200)
+            context = response.context
+            self.assertEqual(context['user'].is_authenticated(), False)
+            self.assertNotEqual(context['user'], user)
+
     @allure.story('login')
     @allure.severity(Severity.BLOCKER)
     def test_logout(self):
