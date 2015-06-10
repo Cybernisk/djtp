@@ -23,7 +23,7 @@ from allure.constants import Severity
 @allure.feature('Apps: accounts')
 class JustTest(TestHelperMixin, TestCase):
     fixtures = [
-        'tests/fixtures/load_users.json',
+        'load_users.json',
     ]
 
     password_change_post = {

@@ -21,7 +21,7 @@ DATABASES = {
     'default': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': rel('db/db.sqlite'),                      # Or path to database file if using sqlite3.
+        'NAME': rel('../db/db.sqlite'),                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -180,6 +180,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+FIXTURE_DIRS = (
+    rel('app/fixtures'),
+)
 
 BRUTEFORCE_ITER = 10
 SITE_URL = 'http://localhost:8000/'  # do not append slash here
