@@ -7,7 +7,7 @@ DJango Template Project
   :target: https://coveralls.io/r/tarvitz/djtp
 
 .. image:: https://readthedocs.org/projects/djtp/badge/?version=latest
-  :target: https://readthedocs.org/projects/djtp/?badge=latest
+  :target: https://djtp.readthedocs.org/en/latest/
 
 * DJTP means Django template project
 
