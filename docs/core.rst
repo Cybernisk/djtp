@@ -15,12 +15,8 @@ Helpers
 -------
 .. automodule:: apps.core.helpers
     :members:
-.. automodule:: apps.core.shortcuts
-    :members:
 
-Decorators
-----------
-.. automodule:: apps.core.decorators
+.. automodule:: apps.core.shortcuts
     :members:
 
 Context Processors

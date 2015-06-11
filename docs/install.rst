@@ -1,15 +1,19 @@
 Installation
 ============
 
+.. contents::
+  :local:
+  :depth: 2
+
 Dependecies
 -----------
-List of whole dependencies split into backend and frontend ones. But before start you should
-install of check your list for this software:
+List of whole dependencies split into backend and frontend ones.
+But before start you should install of check your list for this software:
 
 *requirements list*
 
-1. python-2.7.x
-2. nodejs-0.10.x with npm
+1. python 2.7, 3.3, 3.4
+2. nodejs-0.10.x with npm (bower for js/css deps)
 3. psycopg2 for PostgreSQL databases connection
 4. python-mysql for MySQL/MariaDB
 

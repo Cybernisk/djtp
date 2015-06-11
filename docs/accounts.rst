@@ -2,7 +2,7 @@ Accounts
 ========
 
 Forms
-----
+-----
 .. automodule:: apps.accounts.forms
     :members:
 
@@ -16,17 +16,10 @@ Views
 
 Class based views
 ~~~~~~~~~~~~~~~~~
-.. automodule:: apps.accounts.views.views
-    :members:
-
-
-JSON views
-~~~~~~~~~~
-.. automodule:: apps.accounts.views.json
+.. automodule:: apps.accounts.views
     :members:
 
 Signals
 -------
 .. automodule:: apps.accounts.signals
     :members:
-

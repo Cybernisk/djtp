@@ -7,4 +7,3 @@ Template standard modules:
 
     accounts
     core
-    jsonapp
