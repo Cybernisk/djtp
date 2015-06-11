@@ -11,10 +11,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.unittest import skipIf
 
 from django.conf import settings
-try:
-    import simplejson as json
-except ImportError:
-    import json
 
 import allure
 from allure.constants import Severity

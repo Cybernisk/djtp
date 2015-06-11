@@ -12,7 +12,7 @@ class GetFormNode(Node):
 
     def render(self, context):
         app = self.init[:self.init.rindex('.')]
-        _form = self.init[self.init.rindex('.')+1:]
+        _form = self.init[self.init.rindex('.') + 1:]
         module = __import__(app, 0, 0, -1)
         form_class = getattr(module, _form)
         context[self.varname] = form_class(request=context['request']) \

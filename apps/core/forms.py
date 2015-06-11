@@ -24,9 +24,12 @@ class RequestModelForm(forms.ModelForm):
 class RequestFormMixin(object):
     """RequestFormMixin, store Django ``request`` instance in self.request
 
-    .. note:: ``request`` instance should be given via keywords while form instance init
+    .. note::
 
-     .. code-block:: python
+        ``request`` instance should be given via keywords while
+        form instance init
+
+    .. code-block:: python
 
         class RequestForm(RequestFormMixin, forms.ModelForm):
             class Meta:

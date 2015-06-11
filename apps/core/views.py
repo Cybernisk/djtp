@@ -11,10 +11,6 @@
 from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-try:
-    import simplejson as json
-except ImportError:
-    import json
 
 
 class IndexView(generic.TemplateView):

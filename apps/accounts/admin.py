@@ -11,7 +11,6 @@ from django.contrib import admin
 from apps.accounts.models import User
 
 
-
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -77,9 +76,11 @@ class CustomUserAdmin(UserAdmin):
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2')}
+        (
+            None, {
+                'classes': ('wide',),
+                'fields': ('username', 'email', 'password1', 'password2')
+            }
         ),
     )
     search_fields = ('username', 'email',)

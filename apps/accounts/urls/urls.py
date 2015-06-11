@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from apps.accounts import views
 from apps.core.shortcuts import direct_to_template
 
+
 urlpatterns = patterns(
     'apps.accounts.views',
     url(r'^login/$', views.LoginView.as_view(), name='login'),

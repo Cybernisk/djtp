@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 from apps.core import views
 from apps.core.shortcuts import direct_to_template
 
@@ -11,4 +11,3 @@ urlpatterns = patterns(
         {'template': 'core/blockage.html'},
         name='blockage'),
 )
-

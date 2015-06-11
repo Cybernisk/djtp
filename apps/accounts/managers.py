@@ -7,7 +7,7 @@ from uuid import uuid1
 class UserSIDManager(models.Manager):
     def create(self, user):
         sid = uuid1().hex
-        
+
         if not user:
             return None
 

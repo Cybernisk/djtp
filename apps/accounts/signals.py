@@ -8,7 +8,7 @@
 """
 
 from django.db.models.signals import (
-    pre_save, post_save, pre_delete
+    pre_save
 )
 from apps.accounts.models import User
 from django.dispatch import receiver

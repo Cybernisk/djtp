@@ -12,11 +12,6 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.http import Http404
 from functools import reduce
 
-try:
-    import simplejson as json
-except ImportError:  # pragma: no cover
-    import json
-
 
 # safe method get obj.attr.attr1 and so on
 # safe_ret(cell, 'room.pk')

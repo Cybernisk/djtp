@@ -38,7 +38,7 @@ class LoginForm(forms.Form):
             self._errors['password'] = ErrorList([msg])
             if 'password' in cd:
                 del cd['password']
-        
+
         cd['user'] = user
         return cd
 

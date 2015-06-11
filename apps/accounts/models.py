@@ -32,17 +32,17 @@ class User(PermissionsMixin, AbstractBaseUser):
 
     Username, password and email are required. Other fields are optional.
     """
-    username = models.CharField(_('username'), max_length=50, unique=True,
-                                help_text=_('Required. 30 characters or fewer.'
-                                            ' Letters, numbers and '
-                                            '@/./+/-/_ characters'),
-                                validators=[
-                                    validators.RegexValidator(
-                                        re.compile('^[\w.@+-]+$'),
-                                        _('Enter a valid username.'),
-                                        'invalid'
-                                    )
-                                ])
+    username = models.CharField(
+        _('username'), max_length=50, unique=True,
+        help_text=_('Required. 30 characters or fewer. Letters, numbers and '
+                    '@/./+/-/_ characters'),
+        validators=[
+            validators.RegexValidator(
+                re.compile('^[\w.@+-]+$'),
+                _('Enter a valid username.'),
+                'invalid'
+            )
+        ])
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     email = models.EmailField(_('email address'), blank=True)
@@ -136,5 +136,5 @@ class UserSID(models.Model):
         verbose_name_plural = _("UserSIDs")
 
 
-from .signals import *
+from .signals import setup_signals
 setup_signals()

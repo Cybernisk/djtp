@@ -86,7 +86,7 @@ class PasswordRestoreInitiateView(generic.FormView):
         for sid in sids:
             msg = settings.PASSWORD_RESTORE_REQUEST_MESSAGE % {
                 'link': settings.SITE_URL + reverse(
-                'accounts:password-restore', args=(sid.sid, )),
+                    'accounts:password-restore', args=(sid.sid, )),
                 'url': settings.CONTACT_URL
             }
             send_mail(

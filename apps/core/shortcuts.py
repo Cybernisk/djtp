@@ -15,8 +15,14 @@ def direct_to_template(request, template, context=None, processors=None):
     """return response object
 
     :param request: Django ``HttpRequest`` instance
-    :param template: template file place on filesystem and stored in template directory ex. ``'accounts/profile.html'``
-    :param context: ``dict`` instance with render context ``{'context': True, 'time': datetime.now()}``
+    :param template: template file place on filesystem and stored in
+        template directory ex. ``'accounts/profile.html'``
+    :param context: ``dict`` instance with render context
+
+        .. code-block:: python
+
+            {'context': True, 'time': datetime.now()}
+
     :param processors: context processors
     :returns: ``HttpResponse`` object instance
     """
