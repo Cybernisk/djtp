@@ -19,7 +19,6 @@ from django.contrib.auth.models import (
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from apps.accounts.managers import UserSIDManager
-from datetime import timedelta
 from django.conf import settings
 
 # Create your models here.
