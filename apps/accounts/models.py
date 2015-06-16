@@ -113,7 +113,6 @@ class UserSID(models.Model):
     # additional fields ?
     expired_date = models.DateTimeField(
         _("Expires"),
-        default=timezone.now() + timedelta(weeks=1)
     )
     expired = models.BooleanField(
         _("expired?"), default=False
