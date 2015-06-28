@@ -12,19 +12,19 @@ import pytz
 from django.db import models
 from django.core import validators
 from django.utils import timezone
+from django.contrib import auth
 from django.contrib.auth.models import (
-    AbstractBaseUser, PermissionsMixin, UserManager
+    AbstractBaseUser, UserManager, Permission, Group,
+    _user_has_perm, _user_get_all_permissions, _user_has_module_perms
 )
-
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from apps.accounts.managers import UserSIDManager
 from django.conf import settings
 
+
 # Create your models here.
-
-
-class User(PermissionsMixin, AbstractBaseUser):
+class User(AbstractBaseUser):
     """
     Base class implementing a fully featured User model with
     admin-compliant permissions.
@@ -62,6 +62,21 @@ class User(PermissionsMixin, AbstractBaseUser):
         max_length=64, default='UTC',
         choices=zip(pytz.all_timezones, pytz.all_timezones)
     )
+    is_superuser = models.BooleanField(
+        _('superuser status'), default=False,
+        help_text=_('Designates that this user has all permissions without '
+                    'explicitly assigning them.'))
+    groups = models.ManyToManyField(
+        Group, verbose_name=_('groups'),
+        blank=True, help_text=_('The groups this user belongs to. A user will '
+                                'get all permissions granted to each of '
+                                'their groups.'),
+        related_name="user_group_set", related_query_name="user")
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name=_('user permissions'), blank=True,
+        help_text=_('Specific permissions for this user.'),
+        related_name="user_permission_set", related_query_name="user")
 
     objects = UserManager()
 
@@ -96,6 +111,59 @@ class User(PermissionsMixin, AbstractBaseUser):
     def get_change_password_url():
         """returns change password url"""
         return reverse('accounts:password-change')
+
+    def get_group_permissions(self, obj=None):
+        """
+        Returns a list of permission strings that this user has through their
+        groups. This method queries all available auth backends. If an object
+        is passed in, only permissions matching this object are returned.
+        """
+        permissions = set()
+        for backend in auth.get_backends():
+            if hasattr(backend, "get_group_permissions"):
+                permissions.update(backend.get_group_permissions(self, obj))
+        return permissions
+
+    def get_all_permissions(self, obj=None):
+        return _user_get_all_permissions(self, obj)
+
+    def has_perm(self, perm, obj=None):
+        """
+        Returns True if the user has the specified permission. This method
+        queries all available auth backends, but returns immediately if any
+        backend returns True. Thus, a user who has permission from a single
+        auth backend is assumed to have permission in general. If an object is
+        provided, permissions for this specific object are checked.
+        """
+
+        # Active superusers have all permissions.
+        if self.is_active and self.is_superuser:
+            return True
+
+        # Otherwise we need to check the backends.
+        return _user_has_perm(self, perm, obj)
+
+    def has_perms(self, perm_list, obj=None):
+        """
+        Returns True if the user has each of the specified permissions. If
+        object is passed, it checks if the user has all required perms for this
+        object.
+        """
+        for perm in perm_list:
+            if not self.has_perm(perm, obj):
+                return False
+        return True
+
+    def has_module_perms(self, app_label):
+        """
+        Returns True if the user has any permissions in the given app label.
+        Uses pretty much the same logic as has_perm, above.
+        """
+        # Active superusers have all permissions.
+        if self.is_active and self.is_superuser:
+            return True
+
+        return _user_has_module_perms(self, app_label)
 
     class Meta:
         verbose_name = _("User")
