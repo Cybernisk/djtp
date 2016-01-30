@@ -4,7 +4,7 @@
    :platform: Linux, Unix
    :synopsis: accounts app models
 
-.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+.. moduleauthor:: Nickolas Fox <tarvitz@blacklibrary.ru>
 """
 import re
 import pytz
@@ -19,11 +19,11 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from apps.accounts.managers import UserSIDManager
 from django.conf import settings
 
+from . import managers
 
-# Create your models here.
+
 class User(AbstractBaseUser):
     """
     Base class implementing a fully featured User model with
@@ -192,7 +192,7 @@ class UserSID(models.Model):
         _('updated on'),
         auto_now_add=True
     )
-    objects = UserSIDManager()
+    objects = managers.UserSIDManager()
 
     def __unicode__(self):
         return "%s [%s]" % (self.user.username, self.sid)
@@ -200,7 +200,3 @@ class UserSID(models.Model):
     class Meta:
         verbose_name = _("UserSID")
         verbose_name_plural = _("UserSIDs")
-
-
-from .signals import setup_signals
-setup_signals()

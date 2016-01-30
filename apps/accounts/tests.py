@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
-import six
 import re
-from apps.core.tests import TestHelperMixin
-from django.test import TestCase
-from apps.accounts.models import User
-from django.core.urlresolvers import reverse
+import six
 from copy import deepcopy
+
+from django.test import TestCase
+from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.core import mail
 from django.utils.translation import ugettext_lazy as _
-from django.utils.unittest import skipIf
+from django.test.utils import skipIf
 
-from django.conf import settings
+from apps.core.tests import TestHelperMixin
+from apps.accounts.models import User
 
 import allure
 from allure.constants import Severity

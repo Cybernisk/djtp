@@ -4,7 +4,7 @@
    :platform: Linux, Unix
    :synopsis: core forms classes and mixins
 
-.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+.. moduleauthor:: Nickolas Fox <tarvitz@blacklibrary.ru>
 """
 # coding: utf-8
 from django import forms

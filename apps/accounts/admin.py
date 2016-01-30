@@ -8,7 +8,7 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
 
-from apps.accounts.models import User
+from . import models
 
 
 class UserCreationForm(forms.ModelForm):
@@ -19,7 +19,7 @@ class UserCreationForm(forms.ModelForm):
                                 widget=forms.PasswordInput)
 
     class Meta:
-        model = User
+        model = models.User
         fields = ('email', )
 
     def clean_password2(self):
@@ -47,7 +47,7 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model = User
+        model = models.User
         fields = ('username', 'email', 'password', 'is_active',
                   'is_staff')
 
@@ -87,5 +87,4 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('username', 'email',)
 
 # Now register the new UserAdmin...
-admin.site.register(User, CustomUserAdmin)
-# admin.site.unregister(Group)
+admin.site.register(models.User, CustomUserAdmin)

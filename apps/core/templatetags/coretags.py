@@ -1,4 +1,5 @@
 # coding: utf-8
+import importlib
 from django.template import Library, Node, TemplateSyntaxError
 
 register = Library()
@@ -11,10 +12,9 @@ class GetFormNode(Node):
         self.use_request = use_request
 
     def render(self, context):
-        app = self.init[:self.init.rindex('.')]
-        _form = self.init[self.init.rindex('.') + 1:]
-        module = __import__(app, 0, 0, -1)
-        form_class = getattr(module, _form)
+        app, form_class = self.init.rsplit('.', 1)
+        module = importlib.import_module(app)
+        form_class = getattr(module, form_class)
         context[self.varname] = form_class(request=context['request']) \
             if self.use_request else form_class()
         return ''

@@ -1,23 +1,19 @@
+# -*- coding: utf-8 -*-
 """An account forms.
 
 .. module:: account.forms
    :platform: Linux, Unix
    :synopsis: Account forms
-.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
-
+.. moduleauthor:: Nickolas Fox <tarvitz@blacklibrary.ru>
 """
-# -*- coding: utf-8 -*-
-
 from django import forms
-from django.forms.util import ErrorList
+from django.forms.utils import ErrorList
 from django.utils.translation import ugettext_lazy as _
-from apps.core.forms import RequestFormMixin
-
+from django.core.exceptions import ImproperlyConfigured
 from django.contrib import auth
 
-from apps.accounts.models import User
-from django.core.exceptions import ImproperlyConfigured
-from apps.accounts.models import UserSID
+from . import models
+from apps.core.forms import RequestFormMixin
 
 
 class LoginForm(forms.Form):
@@ -90,7 +86,7 @@ class PasswordRestoreInitiateForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data['email'] or None
-        users = User.objects.filter(email__iexact=email)
+        users = models.User.objects.filter(email__iexact=email)
         if not users:
             raise forms.ValidationError(
                 _("Users with given email does not exists")
@@ -136,7 +132,7 @@ class PasswordRestoreForm(RequestFormMixin,
         return instance
 
     class Meta:
-        model = UserSID
+        model = models.UserSID
         exclude = ('expired_date', 'expired', 'sid', 'user')
 
 
@@ -186,5 +182,5 @@ class PasswordChangeForm(forms.ModelForm):
         super(PasswordChangeForm, self).save(commit)
 
     class Meta:
-        model = User
+        model = models.User
         fields = []

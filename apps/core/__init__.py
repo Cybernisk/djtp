@@ -1,5 +1,2 @@
 # coding: utf-8
-
-__LICENSE__ = "BSD"
-__AUTHOR__ = "Saul Tarvitz"
-__EMAIL__ = "sammaeltorn@gmail.com"
+default_app_config = 'apps.core.config.CoreConfig'

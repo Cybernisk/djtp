@@ -3,7 +3,7 @@
 .. module:: core.helpers
    :platform: Linux, Unix
    :synopsis: Lesser helpers for routing operations
-.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+.. moduleauthor:: Nickolas Fox <tarvitz@blacklibrary.ru>
 """
 # coding: utf-8
 import six
@@ -27,9 +27,18 @@ safe_ret = (
     )
 )
 
-get_int_or_zero = lambda x: int(x) if (
-    x.isdigit() if isinstance(x, six.string_types) else x
-) else 0
+
+def get_int_or_zero(value):
+    """
+    get int or int(0)
+
+    :param str | int value:
+    :rtype: int
+    :return: int
+    """
+    return int(value) if (
+        value.isdigit() if isinstance(value, six.string_types) else value
+    ) else 0
 
 
 # noinspection PyProtectedMember,PyUnresolvedReferences

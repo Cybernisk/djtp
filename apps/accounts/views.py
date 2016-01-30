@@ -3,7 +3,7 @@
 .. module:: account.views
    :platform: Linux, Unix
    :synopsis: Classed based views for accounts handling operations
-.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+.. moduleauthor:: Nickolas Fox <tarvitz@blacklibrary.ru>
 
 """
 # -*- coding: utf-8 -*-

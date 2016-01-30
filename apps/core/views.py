@@ -4,7 +4,7 @@
    :platform: Linux, Unix
    :synopsis: core class based views and mixins
 
-.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+.. moduleauthor:: Nickolas Fox <tarvitz@blacklibrary.ru>
 """
 # -*- coding: utf-8 -*-
 

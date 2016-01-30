@@ -10,11 +10,11 @@ import pytz
 from django.test import TestCase
 from django.conf import settings
 from django.template import Template, Context
-from django.utils.unittest import skipIf
+from django.test.utils import skipIf
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 
-from apps.core import helpers
+from . import helpers
 
 import allure
 from allure.constants import Severity

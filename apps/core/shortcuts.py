@@ -3,7 +3,7 @@
 .. module:: core.shortcuts
    :platform: Linux, Unix
    :synopsis: Shortcuts for core app
-.. moduleauthor:: Nickolas Fox <lilfoxster@gmail.com>
+.. moduleauthor:: Nickolas Fox <tarvitz@blacklibrary.ru>
 
 """
 # coding: utf-8
