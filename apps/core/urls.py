@@ -1,13 +1,12 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from apps.core import views
-from apps.core.shortcuts import direct_to_template
+from django.views.generic import TemplateView
 
 
-urlpatterns = patterns(
-    'apps.core.views',
+urlpatterns = [
     url('^$', views.IndexView.as_view(), name='index'),
     # static urls with info
-    url('^permission/denied/$', direct_to_template,
-        {'template': 'core/blockage.html'},
+    url('^permission/denied/$', TemplateView.as_view(
+        template_name= 'core/blockage.html'),
         name='blockage'),
-)
+]

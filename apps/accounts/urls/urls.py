@@ -1,10 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from apps.accounts import views
-from apps.core.shortcuts import direct_to_template
+from django.views.generic import TemplateView
 
-
-urlpatterns = patterns(
-    'apps.accounts.views',
+urlpatterns = [
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
@@ -18,13 +16,13 @@ urlpatterns = patterns(
         views.PasswordChangeView.as_view(),
         name='password-change'),
     # static
-    url(r'^password/changed/$', direct_to_template,
-        {'template': 'accounts/password_changed.html'},
+    url(r'^password/changed/$', TemplateView.as_view(
+        template_name='accounts/password_changed.html'),
         name='password-changed'),
-    url(r'^password/restored/$', direct_to_template,
-        {'template': 'static/password_restored.html'},
+    url(r'^password/restored/$', TemplateView.as_view(
+        template_name= 'static/password_restored.html'),
         name='password-restored'),
-    url(r'^password/restore/initiated/$', direct_to_template,
-        {'template': 'static/password_restore_initiated.html'},
+    url(r'^password/restore/initiated/$', TemplateView.as_view(
+        template_name= 'static/password_restore_initiated.html'),
         name='password-restore-initiated'),
-)
+]

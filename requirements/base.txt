@@ -1,4 +1,4 @@
-Django==1.9.1
+Django==1.10.6
 pytz==2015.7
 six==1.10.0
 pytest==2.7.1
