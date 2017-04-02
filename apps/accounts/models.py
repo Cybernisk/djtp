@@ -176,7 +176,7 @@ class UserSID(models.Model):
     """
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              related_name='user_sid_set')
-    sid = models.CharField(_("SID"), unique=True, max_length=512)
+    sid = models.CharField(_("SID"), unique=True, max_length=255)
     # additional fields ?
     expired_date = models.DateTimeField(
         _("Expires"),

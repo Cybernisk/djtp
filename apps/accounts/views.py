@@ -30,6 +30,11 @@ from apps.accounts.forms import (
 from django.contrib import auth
 
 
+class IndexView(generic.TemplateView):
+    """Index view"""
+    template_name = 'index.html'
+
+
 class LoginView(generic.FormView):
     """
     LoginView

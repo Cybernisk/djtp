@@ -84,7 +84,7 @@ class TestTemplateTags(TestCase):
         c = Context()
         html = template.render(c)
         self.assertInHTML(
-            '<input id="id_username" name="username" type="text" />',
+            '<input id="id_username" name="username" type="text" required />',
             html
         )
 
